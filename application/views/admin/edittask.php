@@ -307,6 +307,8 @@
         $('form .alert').remove();
     }).prop('checked', false);
   </script>
+  
+  
 
 </body>
 
