@@ -45,16 +45,16 @@
 	   		//window.dispatchEvent(new Event('resize'));
 			$(".x_panel").css("min-height",$(window).height()-200);
 	   });
-    	function deleteproject(id)
+    	function deletetask(id)
 			{
-				//alert(did);
+				//alert(id);
 				if(confirm("Are you sure you want to delete?")) 
 				{
 					$.ajax(
 					{				
 						type: "POST",
-						url: '<?php echo base_url("/admin/projects/deleteproject")?>',
-						data: {'id':id},
+						url: '<?php echo base_url("/admin/tasks/deltask")?>',
+						data: {'task_id':id},
 						dataType: 'json',
 						success: function(d)
 						{	
@@ -156,56 +156,52 @@
 						<div class="x_title">
 						 
 						  <div class="clearfix"></div>
-						   <form id="ShowForm" name="RptForm" class="form-horizontal"  role="form" action="<?php echo base_url("/admin/tasks"); ?>?<?php echo http_build_query($_GET, '', "&");?>">							
-						<fieldset>
+						  <form id="ShowForm" name="RptForm" class="form-horizontal"  role="form" action="<?php echo base_url("/admin/tasks"); ?>?<?php echo http_build_query($_GET, '', "&");?>">							
+			<fieldset>
 							<div class="row">
-							<!--div class="col-lg-4">
-									<div class="form-group">
-										
-											<?php
-												$name=($this->input->get("name",true));
-											?>
-											<input class="form-inline form-control" id="name" name="name" placeholder="Project Name" type="text" value="<?php echo $name; ?>">
-										
-									</div>
-								</div-->
+							
 								<div class="col-lg-2">
 									<div class="form-group">
-										<?php $ext=($this->input->get("ext",true));	?>
-										<select name="type" class="form-inline form-control" >
+										<?php  $project=($this->input->get("project",true));	?>
+										<select name="project" class="form-inline form-control" >
 											<option value="">-Select Project-</option>
-											<option value="1">PBX</option>
-											<option value="2">CALL CENTER</option>
-											<option value="3">PBX & CALL CENTER</option>
-											<option value="4">Others</option>
+											<?php for($i=0;$i<count($projects);$i++){?>
+											<option value="<?php echo $projects[$i]->id?>" <?php echo ($projects[$i]->id==$project)? "selected":""; ?>><?php echo $projects[$i]->name?></option>
+											<?php } ?>
 										</select>							
 									</div>
 								</div>
 								<div class="col-lg-2">
 									<div class="form-group">
-										<?php $ext=($this->input->get("ext",true));	?>
-										<select name="type" class="form-inline form-control" >
+										<?php $user=($this->input->get("user",true));	?>
+										<select name="user" class="form-inline form-control" >
 											<option value="">-Assign To-</option>
-											<option value="1">PBX</option>
-											<option value="2">CALL CENTER</option>
-											<option value="3">PBX & CALL CENTER</option>
-											<option value="4">Others</option>
+											<?php for($i=0;$i<count($users);$i++){?>
+											<option value="<?php echo $users[$i]->id; ?>" <?php echo ($users[$i]->id==$user)? "selected":""; ?>><?php echo $users[$i]->uname; ?></option>
+											<?php } ?>
 										</select>							
 									</div>
 								</div>
 								<div class="col-lg-2">
 									<div class="form-group">
-										<?php $ext=($this->input->get("ext",true));	?>
-										<select name="type" class="form-inline form-control" >
+									<?php
+											$se="";
+											if(!isset($_GET["status"])){
+												$se="aa";
+											}else{
+												$se=$_GET["status"];
+											}
+										?>
+										<select name="status" class="form-inline form-control" >
 											<option value="">-Status-</option>
-											<option value="1">PBX</option>
-											<option value="2">CALL CENTER</option>
-											<option value="3">PBX & CALL CENTER</option>
-											<option value="4">Others</option>
+											<option value="New" <?php echo ($se=='New')? "selected":""; ?>>New</option>
+											<option value="In Progress" <?php echo ($se=='In Progress')? "selected":""; ?>>In Progress</option>
+											<option value="Resolve" <?php echo ($se=='Resolve')? "selected":""; ?>>Resolve</option>
+											<option value="Close" <?php echo ($se=='Close')? "selected":""; ?>>Close</option>
 										</select>							
 									</div>
 								</div>
-								<div class="col-lg-2">
+								<!--div class="col-lg-2">
 									<div class="form-group">											
 										<?php
 											$caldate=($this->input->get("single_cal1",true));
@@ -213,25 +209,18 @@
 										?>
 											 <input type="text" aria-describedby="inputSuccess2Status" placeholder="Due Date" id="single_cal1" name="single_cal1" value="<?php echo $caldate; ?>" class="form-control has-feedback-left">
 											<span aria-hidden="true" class="fa fa-calendar-o form-control-feedback left"></span>
-												
 									</div> 
-									  
-								</div>
-								
-								
-
+								</div-->
 								
 								<div class="col-lg-2">
-										<input id="btnSearch" class="btn btn-primary searchlist" name="search" type="submit" value="Search"/>
-										
-	   
-										
-										
+									<input id="btnSearch" class="btn btn-primary searchlist" name="search" type="submit" value="Search"/>
 								</div>	
+								
 								<div style="text-align:right"><a href="<?php echo base_url(); ?>admin/tasks/addtasks" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Tasks</a></div>
 												
 							</div>
-						</fieldset>
+					
+								</fieldset>
 					</form>
 						</div>
 						<?php if($message){
@@ -279,7 +268,7 @@
 								
 								<TD>
 								<a class="btn btn-default " href="<?php echo base_url('admin/tasks/edit')."?keyword=".$results[$i]->task_id; ?>"><i class="fa fa-edit"></i></a>
-								<a class="btn btn-default " href="javascript:void(0);" onClick="deleteproject('<?php echo $results[$i]->task_id; ?>')"><i class="fa fa-remove"></i></a></TD>
+								<a class="btn btn-default " href="javascript:void(0);" onClick="deletetask('<?php echo $results[$i]->task_id; ?>')"><i class="fa fa-remove"></i></a></TD>
 							</TR>
 							 <?php
 								}

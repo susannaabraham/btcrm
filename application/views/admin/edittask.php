@@ -126,38 +126,16 @@
 					<input type="hidden" value="<?php echo $results[0]->hoursspent; ?>" name="hr_spnd" >
 						
                     <span class="section">#<?php echo $results[0]->task_id; ?> : <?php echo $results[0]->title; ?></span>
-					<?php   /* $assigned_to= $task_results[0]->assigned_to;
-							$sql1 ="SELECT * FROM admin_login where id='$assigned_to'";
-							$query1=$this->db->query($sql1); 
-							$assignto=$query1->result();  */
-							$type=array('','Development','Bug','Maintenance','Others'); ?>
 					Last Updated by <b><?php echo  $task_results[0]->created_by; ?></b> on <?php echo $task_results[0]->created_date;  ?>
+					
 					 <div class="ln_solid"></div>
-					  <!--div class="row">
-					   
-                    Type : 
-                    Priority : 
-					Status : 
-					Est. Hour(s): 
-					Hour(s) Spent: <?php echo $results[0]->hoursspent; ?>
-					Project : 
-                    Created On : <?php echo $results[0]->created_date; ?>
-					</br>
-					<?php for($i=0;$i<count($task_results);$i++){ ?>
-					<?php   $assigned_to= $task_results[$i]->assigned_to;
-							$sql1 ="SELECT * FROM admin_login where id='$assigned_to'";
-							$query1=$this->db->query($sql1); 
-							$assignto=$query1->result();  ?>
-						Created By : <?php echo $task_results[$i]->created_by;  ?>	</br>
-					  <?php echo $task_results[$i]->descriptions;  ?> Status:<?php echo $task_results[$i]->status;  ?> Assign To:<?php echo $task_results[$i]->uname;  ?> Created Date:<?php echo $task_results[$i]->created_date;  ?> </br>
-					<?php } ?>
-						</div-->
-						
+					  
+					  
 					<div class="item form-group" style="padding-bottom: 41px;">
 						<div class="col-xs-12" >
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="max-width: 8%;">Type</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $type[$results[0]->tasktype]; ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="max-width: 8%;">Type</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->name; ?></label>
 						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Est. Hour(s)</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->estimated_hours; ?></label>
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Project</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->name; ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Project</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->projectname; ?></label>
 						</div>
 					
 					
@@ -179,7 +157,7 @@
                     </div>
 					<div class="item form-group">
                       <!--label class="control-label col-md-2 col-sm-2 col-xs-12">Assign to</label-->
-                      <div class="col-md-1 col-sm-1 col-xs-12">
+                      <div class="col-md-2 col-sm-2 col-xs-12">
                         <select name="assignto" class="form-control col-md-12 col-xs-12">
 						<option value=""></option>
 						<?php for($i=0;$i<count($users);$i++){?>
@@ -188,7 +166,7 @@
 						</select>
                       </div>
 					  <!--label class="control-label col-md-1 col-sm-1 col-xs-12">Status </label-->
-					  <div class="col-md-1 col-sm-1 col-xs-12">
+					  <div class="col-md-2 col-sm-2 col-xs-12">
 						<select class="form-control"  name="status">
 							<option value="In Progress">In Progress</option>
 							<option value="Resolve">Resolve</option>
@@ -197,13 +175,13 @@
 					  </div>
 					  
 					  <!--label  class="control-label col-md-2 col-sm-2 col-xs-12">Hour(s) Spent<span class="required">*</span></label-->
-                      <div class="col-md-1 col-sm-1 col-xs-12">
+                      <div class="col-md-2 col-sm-2 col-xs-12">
                         <input type="text" required placeholder="Hours Spent(s)" name="hours_spent"   class="form-control col-md-7 col-xs-12" >
                       </div>
 					  
 					  
 					          <!--label for="name" class="control-label col-md-2 col-sm-2 col-xs-12">Notify via Email </label-->
-								<div class="col-md-2 col-sm-2 col-xs-12">
+								<div class="col-md-3 col-sm-3 col-xs-12">
 		
 										<select class="form-control" id="notifyemail" name="notifyemail[]" placeholder="Email" multiple>
 											<option value="0" >All </option>
@@ -212,6 +190,13 @@
 											<?php } ?>
 											</select>
                       </div>
+					  <!--div class="form-group"-->
+                      <div class="col-md-2 col-sm-2 col-xs-12" style="text-align:right;">
+                     								<!--input type="button" class="btn btn-primary" value="Cancel" onCLick="history.back()"-->
+
+                        <button class="btn btn-success" style="text-align:right;" type="submit" id="send">Submit</button>
+                      </div>
+                    <!--/div-->
 					  
                     </div>
 					
@@ -219,18 +204,12 @@
 					
 					
                     <div class="ln_solid"></div> 
-                    <div class="form-group">
-                      <div class="col-md-12  col-md-offset-10">
-                     								<!--input type="button" class="btn btn-primary" value="Cancel" onCLick="history.back()"-->
-
-                        <button class="btn btn-success" style="text-align:right;" type="submit" id="send">Submit</button>
-                      </div>
-                    </div>
+                    
 					
 					<?php  for($i=0;$i<count($task_results);$i++){ ?>
 					<div class="item form-group" style="margin-bottom: 41px; border: solid 1px #DDDDDD;">
 					<div class="item form-group"  style="margin-top: 12px;margin-bottom: 0px;">
-						<div  class="col-md-1 col-sm-1 col-xs-12"><img src="" height="50" width="50"></div>
+						<div  class="col-md-1 col-sm-1 col-xs-12"><img src="http://192.168.0.158/crm/admin-assets/images/img.jpg" height="50" width="50" class="img-circle profile_img"></div>
 						<div  class="col-md-2 col-sm-2 col-xs-12" ><?php echo $task_results[$i]->created_by;  ?> </br><?php echo $results[0]->created_date; ?></div>
 						<div  class="col-md-3 col-sm-3 col-xs-12" style="text-align: right;">Status: <?php echo $task_results[$i]->status;  ?></div>
 						<div  class="col-md-3 col-sm-3 col-xs-12" style="text-align: right;">Assigned To: <?php echo $task_results[$i]->uname;  ?></div>

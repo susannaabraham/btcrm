@@ -183,10 +183,9 @@
 					   <div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control required" required id="type" name="tasktype">
 							<option value="">-Select Task Type-</option>
-							<option value="1">Development</option>
-							<option value="2">Bug</option>
-							<option value="3">Maintenance</option>
-							<option value="4">Others</option>
+							<?php for($i=0;$i<count($tasktype);$i++){?>
+						<option value="<?php echo $tasktype[$i]->id; ?>"><?php echo $tasktype[$i]->name; ?></option>
+						<?php } ?>
 						</select>
 					  </div>
 					</div>
@@ -197,7 +196,7 @@
 					   <div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control required" id="status" name="status">
 							
-							<option value="NEW">NEW</option>
+							<option value="New">NEW</option>
 							<option value="In Progress">In Progress</option>
 							<option value="Resolve">Resolve</option>
 							<option value="Close">Close</option>

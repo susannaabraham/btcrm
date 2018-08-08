@@ -12,17 +12,22 @@ class tasks_model extends CI_Model
 	public function fetch_data($limit,$start)
 	{
 		$sql ="SELECT * FROM tasks where 1=1";
-		$name=($this->input->get("name",true)) ? $this->input->get("name",true) : 0;
+		$name=($this->input->get("project",true)) ? $this->input->get("project",true) : 0;
 		if(!empty($name))
 		{
-			$sql .=" AND `name` = '$name' ";
+			$sql .=" AND `project` = '$name' ";
 		}
-		$type=($this->input->get("type",true)) ? $this->input->get("type",true) : "";
+		$user=($this->input->get("user",true)) ? $this->input->get("user",true) : 0;
+		if(!empty($user))
+		{
+			$sql .=" AND `assignto` = '$user' ";
+		}
+		$status=($this->input->get("status",true)) ? $this->input->get("status",true) : "";
 		
-		if(!empty($type))
+		if(!empty($status))
 		{
 			//echo $to;
-			$sql .=" AND `type` = '$type' ";
+			$sql .=" AND `status` = '$status' ";
 		}   
 	 
 		$sql .=" ORDER BY `task_id` desc LIMIT $start,$limit";
@@ -43,19 +48,23 @@ class tasks_model extends CI_Model
 	{
 		$sql ="SELECT count(*) as count FROM tasks where 1=1 ";
 					   
-		$name=($this->input->get("name",true)) ? $this->input->get("name",true) : 0;
+		$name=($this->input->get("project",true)) ? $this->input->get("name",true) : 0;
 		if(!empty($name))
 		{
-			$sql .=" AND `name` = '$name' ";
+			$sql .=" AND `project` = '$name' ";
 		}
-		$type=($this->input->get("type",true)) ? $this->input->get("type",true) : "";
+		$user=($this->input->get("user",true)) ? $this->input->get("name",true) : 0;
+		if(!empty($user))
+		{
+			$sql .=" AND `assignto` = '$user' ";
+		}
+		$status=($this->input->get("status",true)) ? $this->input->get("type",true) : "";
 		
-		if(!empty($type))
+		if(!empty($status))
 		{
 			//echo $to;
-			$sql .=" AND `type` = '$type' ";
+			$sql .=" AND `status` = '$status' ";
 		}   
-	 
 		$sql .=" ORDER BY `task_id` ";
       
 		
@@ -125,8 +134,9 @@ class tasks_model extends CI_Model
 	public function Searchtask()
 	{
 		$id = $this->input->get_post('keyword', true);
-		$sql = "SELECT * FROM tasks Where task_id='$id'";
-		$sql = "SELECT projects. * , tasks . *  FROM projects INNER JOIN tasks ON projects.id = tasks.project Where tasks.task_id='$id' order by created_date desc";
+		//$sql = "SELECT * FROM tasks Where task_id='$id'";
+	//	$sql = "SELECT projects. * , tasks . *,tasktype.*  FROM projects INNER JOIN tasks ON projects.id = tasks.project INNER JOIN tasktype ON  tasks.tasktype=tasktype.id Where tasks.task_id='$id' order by created_date desc";
+		$sql = "SELECT *,projects.name as projectname  FROM projects INNER JOIN tasks ON projects.id = tasks.project INNER JOIN tasktype ON  tasks.tasktype=tasktype.id Where tasks.task_id='$id' order by created_date desc";
 
 		$query=$this->db->query($sql);
 
@@ -170,6 +180,18 @@ class tasks_model extends CI_Model
 	public function fetchusers()
 	{
 		$sql = "SELECT * FROM admin_login ";
+		$query=$this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+	}
+	public function tasktype()
+	{
+		$sql = "SELECT * FROM tasktype ";
 		$query=$this->db->query($sql);
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -234,9 +256,11 @@ class tasks_model extends CI_Model
 	public function doDelete()
 	{
 
-		$id=$this->input->post('id');
-		echo $sql = "delete from tasks where id=".$id;
+		$id=$this->input->post('task_id');
+		echo $sql = "delete from task_activity where task_id='$id'";
 		$query=$this->db->query($sql);
+		$sql1 = "delete from tasks where task_id='$id'";
+		$query=$this->db->query($sql1);
 		return $this->db->affected_rows();
 	}
 	

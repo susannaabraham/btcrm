@@ -55,9 +55,12 @@ class tasks extends Domain_Controller {
 		{
 			$page=0;
 		}
-		
+		$data['users']=$this->tasks_model->fetchusers();
+		$data['tasktype']=$this->tasks_model->tasktype();
+		$data['projects']=$this->tasks_model->fetchprojects();
 		$data["results"] = $this->tasks_model->fetch_data($config["per_page"], $page); 
 		$data["links"] = $this->pagination->create_links();
+		
 		$this->load->view('admin/tasks',$data);
 		}
 	}
@@ -77,6 +80,7 @@ class tasks extends Domain_Controller {
 		$data['url']=base_url();
 		$data['projects']=$this->tasks_model->fetchprojects();
 		$data['users']=$this->tasks_model->fetchusers();
+		$data['tasktype']=$this->tasks_model->tasktype();
 		$this->load->view('admin/addtasks',$data);
 		}
 		
@@ -107,6 +111,7 @@ class tasks extends Domain_Controller {
 		$data['users']=$this->tasks_model->fetchusers();
 		$data["results"]=$this->tasks_model->Searchtask();
 		$data["task_results"]=$this->tasks_model->task_results();
+		$data['tasktype']=$this->tasks_model->tasktype();
         $this->load->view('admin/edittask',$data);
 		}
 	}
@@ -121,15 +126,15 @@ class tasks extends Domain_Controller {
 			echo json_encode(array("success"=>false));
 		}
 	}
-	public function deleteproject()
+	public function deltask()
 	{	
-		//permission setting//
+		/* //permission setting//
 		$this->load->model('user_model');
 		if(false===$this->user_model->haspermission2(5)){
 		echo json_encode(array("success"=>false));
 		
 		} else {
-		//permission setting//
+		//permission setting// */
 		header('content-type: application/json; charset=utf-8');
 		$result=$this->tasks_model->doDelete();
 		if($result>0)
@@ -138,7 +143,7 @@ class tasks extends Domain_Controller {
 		}else{
 			echo json_encode(array("success"=>false));
 		}
-		}
+		// }
 	}
 	
 	
