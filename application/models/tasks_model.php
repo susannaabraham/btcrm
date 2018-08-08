@@ -302,7 +302,7 @@ class tasks_model extends CI_Model
 	{
 
 		$id=$this->input->post('task_id');
-		echo $sql = "delete from task_activity where task_id='$id'";
+		 $sql = "delete from task_activity where task_id='$id'";
 		$query=$this->db->query($sql);
 		$sql1 = "delete from tasks where task_id='$id'";
 		$query=$this->db->query($sql1);
