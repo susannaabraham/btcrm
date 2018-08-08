@@ -218,7 +218,7 @@
 
 					
 					
-                    <div class="ln_solid"></div>
+                    <div class="ln_solid"></div> 
                     <div class="form-group">
                       <div class="col-md-12  col-md-offset-10">
                      								<!--input type="button" class="btn btn-primary" value="Cancel" onCLick="history.back()"-->
