@@ -1,0 +1,14 @@
+#!/usr/bin/php
+<?php
+echo "hello";
+exec('virtualmin list-users --domain chimpclips.com --name-only',$out);
+print_r($out);
+//exec('yum list all',$out);
+print_r($out);
+$divice=$argv[1];
+exec('echo "DEVICE='.$divice.'" > /tmp/ifcfg-$divice',$out);
+print_r($out);
+exec('cat /tmp/ifcfg-$divice',$out);
+print_r($out);
+print_r($argv);
+?>
