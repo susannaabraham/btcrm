@@ -25,6 +25,11 @@
   <script src="<?php echo base_url("/admin-assets"); ?>/js/jquery.min.js"></script>
   <script src="<?php echo base_url("/admin-assets"); ?>/js/validator/validator.js"></script> 
 
+   <!-- daterangepicker -->
+ <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/moment/moment.min.js"></script>
+ <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/datepicker/daterangepicker.js"></script>
+
+
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -66,7 +71,44 @@
 				}		
 			}
 		</script>
+ <script type="text/javascript">
+		$(function() {
 
+		  $('input[name="single_cal1"]').daterangepicker({
+			  autoUpdateInput: false,
+			  timePicker: true,
+			  timePicker24Hour:true,
+			  timePickerSeconds:true,
+			  locale: {
+				  cancelLabel: 'Clear'
+			  }
+			  ,
+			  ranges: {
+           'Today': [moment().startOf('day'), moment()],
+           'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+		   'This Week': [moment().startOf('isoweek').isoWeekday(1), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			}
+			  
+		  });
+
+		  $('input[name="single_cal1"]').on('apply.daterangepicker', function(ev, picker) {
+			  $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+		  });
+
+		  $('input[name="single_cal1"]').on('cancel.daterangepicker', function(ev, picker) {
+			  $(this).val('');
+		  });
+
+		});
+		
+		function playAu($c,$r,$d){
+			$("#"+$c).html('<audio controls autoplay style="width:150px;" id=""><source src="/wave.php?r='+$r+'&d='+$d+'" type="audio/wav"></audio>');
+		}
+		</script>
 </head>
 
 
@@ -117,7 +159,7 @@
 						   <form id="ShowForm" name="RptForm" class="form-horizontal"  role="form" action="<?php echo base_url("/admin/tasks"); ?>?<?php echo http_build_query($_GET, '', "&");?>">							
 						<fieldset>
 							<div class="row">
-							<div class="col-lg-4">
+							<!--div class="col-lg-4">
 									<div class="form-group">
 										
 											<?php
@@ -126,23 +168,55 @@
 											<input class="form-inline form-control" id="name" name="name" placeholder="Project Name" type="text" value="<?php echo $name; ?>">
 										
 									</div>
-								</div>
-								<div class="col-lg-4">
+								</div-->
+								<div class="col-lg-2">
 									<div class="form-group">
-										
-											<?php
-												$ext=($this->input->get("ext",true));
-											?>
-											<select name="type" class="form-inline form-control" >
-							<option value="">-Select Project Type-</option>
-							<option value="1">PBX</option>
-							<option value="2">CALL CENTER</option>
-							<option value="3">PBX & CALL CENTER</option>
-							<option value="4">Others</option>
-							</select>							
+										<?php $ext=($this->input->get("ext",true));	?>
+										<select name="type" class="form-inline form-control" >
+											<option value="">-Select Project-</option>
+											<option value="1">PBX</option>
+											<option value="2">CALL CENTER</option>
+											<option value="3">PBX & CALL CENTER</option>
+											<option value="4">Others</option>
+										</select>							
 									</div>
 								</div>
-								
+								<div class="col-lg-2">
+									<div class="form-group">
+										<?php $ext=($this->input->get("ext",true));	?>
+										<select name="type" class="form-inline form-control" >
+											<option value="">-Assign To-</option>
+											<option value="1">PBX</option>
+											<option value="2">CALL CENTER</option>
+											<option value="3">PBX & CALL CENTER</option>
+											<option value="4">Others</option>
+										</select>							
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<?php $ext=($this->input->get("ext",true));	?>
+										<select name="type" class="form-inline form-control" >
+											<option value="">-Status-</option>
+											<option value="1">PBX</option>
+											<option value="2">CALL CENTER</option>
+											<option value="3">PBX & CALL CENTER</option>
+											<option value="4">Others</option>
+										</select>							
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">											
+										<?php
+											$caldate=($this->input->get("single_cal1",true));
+													
+										?>
+											 <input type="text" aria-describedby="inputSuccess2Status" placeholder="Due Date" id="single_cal1" name="single_cal1" value="<?php echo $caldate; ?>" class="form-control has-feedback-left">
+											<span aria-hidden="true" class="fa fa-calendar-o form-control-feedback left"></span>
+												
+									</div> 
+									  
+								</div>
 								
 								
 
