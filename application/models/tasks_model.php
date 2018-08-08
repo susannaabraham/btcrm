@@ -49,7 +49,7 @@ class tasks_model extends CI_Model
 			$sql .=" AND `status` = '$status' ";
 		}   
 	 
-	echo	$sql .=" ORDER BY `task_id` desc LIMIT $start,$limit";
+		$sql .=" ORDER BY `task_id` desc LIMIT $start,$limit";
       
 			   
 		$query=$this->db->query($sql);
@@ -65,7 +65,25 @@ class tasks_model extends CI_Model
     }
 	public function record_count()
 	{
-		$sql ="SELECT count(*) as count FROM tasks where 1=1 ";
+		$pj="";
+			$current_user=$this->session->userdata('id');
+		$sql1 = "SELECT * FROM projects";
+		$query=$this->db->query($sql1);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			$users=	$row->users; 
+				$user=(explode(" ",$users)); 
+				for($i=0;$i<count($user);$i++){ 
+				if($user[$i]==$current_user){
+                $pj .= $row->id.","; 
+				
+				}
+				}
+            }
+            
+        }
+		 $pj=rtrim($pj,",");
+		$sql ="SELECT count(*) as count FROM tasks where  project IN ($pj) ";
 					   
 		$name=($this->input->get("project",true)) ? $this->input->get("name",true) : 0;
 		if(!empty($name))

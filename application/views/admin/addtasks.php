@@ -146,7 +146,7 @@
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <select name="assignto" class="form-control col-md-7 col-xs-12" id="selectdis" >
-						<option value=""></option>
+						<option value="">Select User</option>
 						<?php for($i=0;$i<count($users);$i++){?>
 						<option value="<?php echo $users[$i]->id; ?>"><?php echo $users[$i]->uname; ?></option>
 						<?php } ?>
@@ -160,7 +160,7 @@
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Due date <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="date" required="required" placeholder="Due date " name="duedate" autocomplete="off"   class="form-control col-md-7 col-xs-12" >
+                        <input type="text" required="required" placeholder="Due date " name="duedate" autocomplete="off"   class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
 					
@@ -171,7 +171,7 @@
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="radio" name="priority" value="LOW"  > Low
-                        <input type="radio" name="priority" value="Medium"> Medium
+                        <input type="radio" name="priority" value="Medium" checked="checked"> Medium
                         <input type="radio" name="priority" value="High"> High
                       </div>
                     </div>
