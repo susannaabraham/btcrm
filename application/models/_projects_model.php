@@ -95,7 +95,7 @@ class projects_model extends CI_Model
 
 			$id = $this->input->post('id', true);
 			$users=$this->input->post('users');
-			$user = implode (", ", $users);
+			$user = implode (",", $users);
 			
 			$data = array(
 				'users'=>$user

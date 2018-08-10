@@ -65,6 +65,56 @@
 					});	 
 				}		
 			}
+			
+			
+			
+			
+				function btn_click1(cid) {
+	$('#myModal1').modal('show');
+	$(".usform").empty();
+	
+ $.ajax({
+      type: "POST",
+      url: "<?php echo base_url("/admin/projects/addusers"); ?>", 
+      data:{keyword:cid},
+      success: function(response) {
+		var k=response;
+		
+$(k).appendTo('.usform');
+ 
+	 }
+						});
+						}
+
+function addcontact(){
+		//var n=0;
+		 var user = [];
+            $.each($("input[name='users']"), function(){ 
+                user.push($(this).val());
+
+            });
+			
+			alert(user);
+			var permission = [];
+        $.each($("select[name='permission']"), function(){            
+            permission.push($(this).val());
+        });
+			alert(permission);
+		var id=$(".id").val();
+
+		
+	   $.ajax({
+      type: "POST",
+      url: "<?php echo base_url("/admin/projects/saveusers"); ?>", 
+      data:{user:user,permission:permission,id:id},
+      success: function(response) {
+		  //alert(response);
+		$('#myModal1').modal('toggle');  
+			}
+		});
+				
+	}
+
 		</script>
 
 </head>
@@ -144,7 +194,45 @@
 								</div>
 								
 								
-								
+								<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog modal-md">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><b>ADD USERS</b></h4>
+        </div>
+		
+		
+   <div class="modal-body" >
+	  
+	  <div class="form-group">
+		   <label for="name" class="control-label col-md-2 col-sm-2 col-xs-12 label1">Users </label>
+		  <div class="usform col-md-10 col-sm-10 col-xs-12 ">
+		 </div>
+		  
+		  
+		</div>
+		</br>
+
+		
+        </div>
+		
+		
+			
+			
+		
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+		  							<button type="button" class="btn btn-primary pull-right" onclick='addcontact()' style="font-size:12px" >ADD USER</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  			 
+
 
 								
 								<div class="col-lg-2">
@@ -200,7 +288,8 @@
 								<TD><?php echo $status[$results[$i]->status]; ?></TD>
 								
 								<TD>
-								<a class="btn btn-default " data-toggle="tooltip" title="Add Users" href="<?php echo base_url('admin/projects/addusers')."?keyword=".$results[$i]->id; ?>"><i class="fa fa-user-plus"></i></a>
+								<a class="btn btn-default " data-toggle="tooltip" title="Add Users"  onclick="javascript:parent.btn_click1(<?php echo $results[$i]->id; ?>);"  ><i class="fa fa-user-plus"></i></a>
+							<!--<a class="btn btn-default " data-toggle="tooltip" title="Add Users" href="<?php echo base_url('admin/projects/addusers')."?keyword=".$results[$i]->id; ?>"><i class="fa fa-user-plus"></i></a>-->
 								<a class="btn btn-default " data-toggle="tooltip" title="Edit Project" href="<?php echo base_url('admin/projects/edit')."?keyword=".$results[$i]->id; ?>"><i class="fa fa-edit"></i></a>
 								<a class="btn btn-default " data-toggle="tooltip" title="Delete Project" href="javascript:void(0);" onClick="deleteproject('<?php echo $results[$i]->id; ?>')"><i class="fa fa-remove"></i></a></TD>
 							</TR>

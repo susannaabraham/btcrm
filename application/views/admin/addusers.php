@@ -116,7 +116,7 @@
 					  <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Users <span class="required">*</span>
 					  </label>
 
-					   <div class="col-md-8 col-sm-8 col-xs-12">
+					   <div class="col-md-6 col-sm-6 col-xs-12 ">
 						<?php 
 								
 									$sql ="SELECT * from admin_login ";
@@ -124,11 +124,21 @@
 									$res=$query->result();
 									for($j=0;$j<count($res);$j++){
 														?>
-							<label class="col-md-4 col-sm-4 col-xs-12">
+													              <div class="item form-group">
+							<div class="col-md-5 col-sm-4 col-xs-12">
+							<label >
 							<input type="checkbox"  value="<?php echo $res[$j]->id; ?>" <?php if(in_array($res[$j]->id, $myArray)){ echo "Checked"; } ?> name="users[]" />
 							<?php echo $res[$j]->uname; ?></label>
-							
-						
+							</div>
+							<div class="col-md-5 col-sm-4 col-xs-12">
+							<select name="permission" class="form-control" >
+							<option value="">Select Permission</option>
+							<option value="Read">Read</option>
+							<option value="Write">Write</option>
+							<option value="Read & Write">Read & Write</option>
+							</select>
+						</div>
+						</div>
 						<?php 	} ?>
 					  </div>
 					</div>

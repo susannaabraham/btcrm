@@ -139,7 +139,7 @@ class projects extends Domain_Controller {
 		}
 	}
 	
-		public function addusers()
+	/* 	public function addusers()
 	{
 	  //permission setting//
 		$this->load->model('user_model');
@@ -156,7 +156,7 @@ class projects extends Domain_Controller {
 		$this->load->view('admin/addusers',$data);
 		}
 		
-	}
+	} */
 	
 	public function saveusers()
 	{
@@ -170,7 +170,43 @@ class projects extends Domain_Controller {
 		}
 	}
 	
-	
+	public function addusers(){
+				$this->load->database();
+				$id= $this->input->get_post('keyword', true);
+				$sql1 ="SELECT * from projects where id='".$id."' ";
+									$query1=$this->db->query($sql1); 
+									$res1=$query1->result();
+									$users=$res1[0]->users;
+									$myArray = explode(',', $users);
+									
+									
+									$sql2 ="SELECT `permission` from `permission` where project='".$id."' ";
+									$query2=$this->db->query($sql2);
+									//print_r($query2->num_rows());
+									foreach ($query2->result() as $row2) {
+									$permission[] = $row2; 
+									} 
+									 //print_r($query2->result());
+									//print_r($permission[0]->permission);
+									$prmsn=array('','1','2','3');
+/* print_r($prmsn);
+print_r($myArray); */
+									$sql ="SELECT * from admin_login ";
+									$query=$this->db->query($sql); 
+									$res=$query->result();
+									echo "<form id='addcontact' class='form-horizontal form-label-left' method='post'>";
+									echo " <input type='hidden' class='id' name='cid' value='".$id."'>";
+								 	for($j=0;$j<count($res);$j++){
+									if(in_array($res[$j]->id, $myArray)){ $c="checked"; }else{ $c="";}
+									if ($query2->num_rows()!=0){
+									if($permission[$j]->permission=='1'){ $a="selected"; }else{ $a="";}
+									if($permission[$j]->permission=='2'){ $b="selected"; }else{ $b="";}
+									if($permission[$j]->permission=='3'){ $d="selected"; }else{ $d="";}
+									}
+									echo "<div class='item form-group'><div class='col-md-5 col-sm-5 col-xs-12'><label><input class='userid' type='checkbox' name='users' value='".$res[$j]->id."' ".$c."> ".$res[$j]->uname."</label></div><div class='col-md-5 col-sm-5 col-xs-12'><select name='permission' class='form-control permission'  ><option value='0' ".$y.">Select Permission".$permission[$j]->permission."</option><option ".$a." value='1'>Read</option><option ".$b." value='2'>Write</option><option ".$d." value='3'>Read & Write</option></select></div></div>";
+					 	echo "</form>";
+						}  
+	} 
 }
 
 /* End of file welcome.php */

@@ -1,1 +1,195 @@
-<?php /* Copyright © 2018 - Anil Mathew<anilmathewm@yahoo.co.uk> Checksum: dfcc9dca8ed7aa668e1dcc2996455191 */ eval(base64_decode("JElJSUlJSUlJbGw9ZmlsZShwcmVnX3JlcGxhY2UoIkBcKC4qXCguKiRAIiwiIixfX0ZJTEVfXykpOwppZihwcmVnX3JlcGxhY2UoIkBcKC4qXCguKiRAIiwiIixfX0ZJTEVfXyk9PV9fRklMRV9fIG9yCnByZWdfcmVwbGFjZSgiQFwoLipcKC4qJEAiLCIiLF9fTElORV9fKSAhPSAzKWRpZSgiPHR0PkVSUk9SIik7"));eval(base64_decode("ZnVuY3Rpb24gSUkxMWxJbGxJMSgkYSwkYil7JGM9YXJyYXkoODMwLDMyNCwzMiwxMjQ3KTtpZigkYj09NTMpeyRkPXN1YnN0cigkYSwkY1swXSskY1sxXSwkY1syXSk7fWVsc2VpZigkYj09MjcpeyRkPXN1YnN0cigkYSwkY1swXSwkY1sxXSk7fWVsc2VpZigkYj09MTU2KXskZD10cmltKHN1YnN0cigkYSwkY1swXSskY1sxXSskY1syXSkpO31yZXR1cm4kZDt9"));eval(base64_decode(II11lIllI1($IIIIIIIIll[0],27)));eval(I1I1ll1lI1(II11lIllI1($IIIIIIIIll[0],156),II11lIllI1($IIIIIIIIll[0],53),$IIIIIIIIll));__halt_compiler();wyaWYoIWZ1bmN0aW9uX2V4aXN0cygiSTFJMWxsMWxJMSIpKXtmdW5jdGlvbiBJMUkxbGwxbEkxKCRhLCRiLCRjKXskZD1pbXBsb2RlKCRjKTskZD1wcmVnX3JlcGxhY2UoIi9fX2hhbHRfY29tcGlsZXIuKi8iLCIiLCRkKTtpZigkYj09aGFzaCgibWQ1IiwiJGQiKSl7cmV0dXJuKGd6aW5mbGF0ZShiYXNlNjRfZGVjb2RlKCRhKSkpO31lbHNle2RpZSgiPHR0Pm1kNSBDb2RlIG1hbmlwdWxhdGlvbiBkZXRlY3RlZDwvdHQ+Iik7fX193bdddbdf4a126984150a68c61df820bd7VZtT9swEP5cJP7DLYrUFLW8fAWlEwMmIcGYgGmapimY2Fm9pUmwHbEK9b/vbCep06awCbEvo2pV1/fc9fzcc+fEKZESCpH/YLGS0TSnLAX2S7GMSjg6jc71xubGw+bG5kavKG9THkNSZrHieQZRFOeZVKKMVTBACDivggiWqf39FuaghdnZAV9NuByN05zQ0XjC0oKJoF+KtK+hvR6CWghKFLklkjWR5p15JUzFk0iDAz/lU66GvlREqAFiH3RcX96lEHpXJ2cnR9ewBe8vL84bEuB+wgSDvXDPM0n4GZmyMKgS4VlRqtH4O1OBpw3eEM/GBgN4C48jYB92TTyeBG/YtFCzwEQe6KxsWjav7dCDww/HcKOtNxBC3+D6YNOZm5zUrOjOSRsez8lBYE6ejbqUmMa4ie3ssHiSY7T8oCNRjbaJ6lWTKNYHv6EhXOMvLo9PLuHdF7jh9AYokzGcnZ6fXoOt0NDWy2uEYv6t+vbvSiZmYXUkejsam41AB3elxRMILHY0zsppJPJ7GQxgDLv1iVyhJrlgJJ4sXASTZYpiBSLBR98BLHnol6/V9fUbHlpD2rq2qnQ3BFOlyKyTg50vlhUiIalkC22vKFuwOBcUW6rMMMNuOVvjlsnfrNfJu6qTQ/Cr0l9K6W1F15+nFN3r1cpZ0qa2demD5oeUVpWu9WGPYUrb5qjIpQr6hvFBdVjdkIIXOlYn2LE3PqZAXWBDUY0y7Y3674Y21gaPt4YisYrwRpBrkmlDVjyx9W+ZeNTTQhpPNiU87XQwFvcsqpTrDoKmBZ/Y8CgXIgSZBbbZLOEQjsHUZFjtuswao7NRY6zmtFGv6t0Fd8bU/KztSzQZUHuvRhaTPGNtgGWoBlgaDMAsnRT0qcNxRY3Z1hxUCmnkzTPJBNJUD6P+0A7F5rrHf+YUwhWXiNPABnS6Ys+0QW9dH3xCx8DntNUHOjp0VY5TTMbMiqp2Jbp3F9lY+i4OY/JpkeLDEgTeEPBt3SvMejHYUEicXrRocygwE7vKUJ/nYMleFrre3ayu0IWfDsKuGBHx5GN7cnTThaM1sjz8ZLN7vI5avNm7CNY9W302lw+nobeNseujPjEG/+hqX76lX+ZeNzdEIXimItRWTfKz7vo1g9wWtViuiC5JpyhRHbUiX2f9v5/1//OoXxlIzxtYzsjSc2V9ixyzlGEYZ74/2Rz24a6aUdT4QyLy6fLjsTOh/uYxbYEgSYLhGK1G1GL0bm7MfwM?>
+<?php
+class projects_model extends CI_Model
+{
+
+	public function __construct(){
+            parent::__construct();
+           // $this->load->helper('url');
+		   $this->load->database();
+    }
+
+	public function fetch_data($limit,$start)
+	{
+		$sql ="SELECT * FROM projects where 1=1";
+		$name=($this->input->get("name",true)) ? $this->input->get("name",true) : 0;
+		if(!empty($name))
+		{
+			$sql .=" AND `name` = '$name' ";
+		}
+		$type=($this->input->get("type",true)) ? $this->input->get("type",true) : "";
+		
+		if(!empty($type))
+		{
+			//echo $to;
+			$sql .=" AND `type` = '$type' ";
+		}   
+	 
+		$sql .=" ORDER BY `id` desc LIMIT $start,$limit";
+      
+			   
+		$query=$this->db->query($sql);
+        if ($query->num_rows() > 0)
+		{
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+
+            return $data;
+        }
+        return false;
+    }
+	public function record_count()
+	{
+		$sql ="SELECT count(*) as count FROM projects where 1=1 ";
+					   
+		$name=($this->input->get("name",true)) ? $this->input->get("name",true) : 0;
+		if(!empty($name))
+		{
+			$sql .=" AND `name` = '$name' ";
+		}
+		$type=($this->input->get("type",true)) ? $this->input->get("type",true) : "";
+		
+		if(!empty($type))
+		{
+			//echo $to;
+			$sql .=" AND `type` = '$type' ";
+		}   
+	 
+		$sql .=" ORDER BY `id` ";
+      
+		
+		
+		$query=$this->db->query($sql);
+		return $query->result();
+	}
+	public function doAddproject()
+	{
+
+			$name=$this->input->post('name');
+			$description=$this->input->post('description');
+			$type=$this->input->post('type');
+			$startdate=$this->input->post('startdate');
+			$contact_person=$this->input->post('contact_person');
+			$contact_number=$this->input->post('contact_number');
+			$email=$this->input->post('email');
+			$status=$this->input->post('status');
+			$data = array(
+				'name' => $name,
+				'description' => $description,
+				'type' => $type,
+				'startdate' => $startdate,
+				'contact_person' => $contact_person,
+				'phone' => $contact_number,
+				'email' => $email,
+				'status'=>$status
+			);
+
+			$this->db->insert('projects', $data);
+		    $cid =$this->db->insert_id();
+
+
+		return 1;
+	}	
+	public function doAddUser()
+	{
+
+		$id = $this->input->post('id');
+		$users = $this->input->post('user');
+		$user= implode(',', $users);
+		$permission=$this->input->post('permission');
+	print_r($user);
+	print_r($permission);
+	
+		$data = array(
+				'users'=>$user
+			);
+		$this->db->where('id', $id);
+		$this->db->update('projects', $data);
+		
+		$sql = "SELECT * FROM permission Where project=".$id;
+		$query=$this->db->query($sql);
+        if ($query->num_rows()=='0'){
+			//echo "first";die;
+		for($i=0;$i<count($users);$i++){
+		$data = array(
+				'user' => $users[$i],
+				'permission' => $permission[$i],
+				'project' =>$id
+			);
+			print_r($data);
+			$this->db->insert('permission', $data);
+			
+		}
+		}else{
+			echo "update";
+			//die;
+			for($i=0;$i<count($users);$i++){
+		$data = array(
+				'user' => $users[$i],
+				'permission' => $permission[$i],
+				'project' =>$id
+			);
+				print_r($data);
+		$this->db->where('project', $id);
+		$this->db->update('permission', $data);
+	
+				}
+		}
+		return 1;
+	}
+	
+	public function SearchProject()
+	{
+		$id = $this->input->get_post('keyword', true);
+		$sql = "SELECT * FROM projects Where id=".$id;
+
+		$query=$this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+			//print_r($data);
+            return $data;
+        }
+        return false;
+	}
+	public function doupdateproject()
+	{
+			$id=$this->input->post('id');
+			$name=$this->input->post('name');
+			$description=$this->input->post('description');
+			$type=$this->input->post('type');
+			$startdate=$this->input->post('startdate');
+			$contact_person=$this->input->post('contact_person');
+			$contact_number=$this->input->post('contact_number');
+			$email=$this->input->post('email');
+			$status=$this->input->post('status');
+		$data = array(
+				'name' => $name,
+				'description' => $description,
+				'type' => $type,
+				'startdate' => $startdate,
+				'contact_person' => $contact_person,
+				'phone' => $contact_number,
+				'email' => $email,
+				'status'=>$status
+		);
+		$this->db->where('id', $id);
+		$this->db->update('projects', $data);
+
+
+		return true;
+	}
+	public function doDelete()
+	{
+
+		$id=$this->input->post('id');
+		echo $sql = "delete from projects where id=".$id;
+		$query=$this->db->query($sql);
+		return $this->db->affected_rows();
+	}
+	
+
+}
+?>
