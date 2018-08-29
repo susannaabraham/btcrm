@@ -117,11 +117,11 @@ class tasks extends Domain_Controller {
 	}
 	public function updatetasks()
 	{
-		
+		$id=$this->input->post('id'); 
 		header('content-type: application/json; charset=utf-8');
 		$result=$this->tasks_model->doupdatetask();
 		if($result>0){
-			redirect('/admin/tasks',301);
+			redirect('/admin/tasks/edit?keyword='.$id,301);
 		}else{
 			echo json_encode(array("success"=>false));
 		}

@@ -192,8 +192,9 @@
 											<option value="">-Status-</option>
 											<option value="New" <?php echo ($se=='New')? "selected":""; ?>>New</option>
 											<option value="In Progress" <?php echo ($se=='In Progress')? "selected":""; ?>>In Progress</option>
-											<option value="Resolve" <?php echo ($se=='Resolve')? "selected":""; ?>>Resolve</option>
-											<option value="Close" <?php echo ($se=='Close')? "selected":""; ?>>Close</option>
+											<option value="Reassigned" <?php echo ($se=='Reassigned')? "selected":""; ?>>Reassigned</option>
+											<option value="Resolved" <?php echo ($se=='Resolved')? "selected":""; ?>>Resolved</option>
+											<option value="Closed" <?php echo ($se=='Closed')? "selected":""; ?>>Closed</option>
 										</select>							
 									</div>
 								</div>
@@ -243,8 +244,14 @@
 							  // $status=array('','Enquiry','POC','Implementation','AMC','NON AMC');
 								if(isset($results[0]->task_id))
 						        {
-								for($i=0;$i<count($results);$i++){ ?>
-							<TR id="dat_<?php echo $results[$i]->id; ?>" role="row" class="odd">
+								for($i=0;$i<count($results);$i++){ 
+								$stle="";
+								$date1=date('Y-m-d');
+								$date2=$results[$i]->duedate;;
+								if(strtotime($date1) > strtotime($date2))
+								{  $stle="style='background-color: #ff0e061a;'"; } ?>
+								
+							<TR <?php  echo $stle; ?> role="row" class="odd" >
 								<?php 
 									$project_id=$results[$i]->project;
 									$assigned_to=$results[$i]->assignto;

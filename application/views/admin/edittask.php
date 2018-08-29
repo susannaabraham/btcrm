@@ -121,10 +121,7 @@
 						<?php
 							if(!empty($results[0]->task_id)){ 
 						?> 
-                  <form novalidate="" name="frmdid" id="frmdid" class="form-horizontal form-label-left" action="<?php echo base_url("/admin/tasks/updatetasks"); ?>" method="post">
-					<input type="hidden" value="<?php echo $results[0]->task_id; ?>" name="id" >
-					<input type="hidden" value="<?php echo $results[0]->hoursspent; ?>" name="hr_spnd" >
-						
+                 		
                     <span class="section">#<?php echo $results[0]->task_id; ?> : <?php echo $results[0]->title; ?></span>
 					Last Updated by <b><?php echo  $task_results[0]->created_by; ?></b> on <?php echo $task_results[0]->created_date;  ?>
 					
@@ -133,21 +130,32 @@
 					  
 					<div class="item form-group" style="padding-bottom: 41px;">
 						<div class="col-xs-12" >
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="max-width: 8%;">Type</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->name; ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="max-width: 8%;text-align:left;">Type</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->name; ?></label>
 						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Est. Hour(s)</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->estimated_hours; ?></label>
 						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Project</label><label style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->projectname; ?></label>
 						</div>
 					
+					<?php $status=$results[0]->status;
+							if($status=="New"){ $stat="<span class='label label-default'>New</span>";}
+							if($status=="In Progress"){ $stat="<span class='label label-primary'>In Progress</span>"; }
+							if($status=="Reassigned"){ $stat="<span class='label label-warning'>Reassigned</span>"; }
+							if($status=="Resolved"){ $stat="<span class='label label-info'>Resolved</span>"; }
+							if($status=="Closed"){ $stat="<span class='label label-success'>Closed</span>"; }
+					?>
 					
 					<div class="col-xs-12" >
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="max-width: 8%;">Priority</label><label for="txtdid" style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->priority; ?></label>
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Hour(s) Spent</label><label style="text-align: left;font-weight:normal;" for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->hoursspent; ?></label>
-						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Status</label><label for="txtdid" style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->status; ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align:left;max-width: 8%;">Priority</label><label for="txtdid" style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $results[0]->priority; ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Hour(s) Spent</label><label style="text-align: left;font-weight:normal;" for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">
+						<?php if($results[0]->hoursspent > $results[0]->estimated_hours) { ?><span class="label label-danger"><?php echo $results[0]->hoursspent; ?></span><?php } else { echo $results[0]->hoursspent; } ?></label>
+						<label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">Status</label><label for="txtdid" style="text-align: left;font-weight:normal;" class="control-label col-md-2 col-sm-2 col-xs-12"><?php echo $stat; ?></label>
 					
 					</div>
 					</div>
 
-					 
+					  <form novalidate="" name="frmdid" id="frmdid" class="form-horizontal form-label-left" action="<?php echo base_url("/admin/tasks/updatetasks"); ?>" method="post">
+						<input type="hidden" value="<?php echo $results[0]->task_id; ?>" name="id" >
+					<input type="hidden" value="<?php echo $results[0]->hoursspent; ?>" name="hr_spnd" >
+					
 					<div class="item form-group">
                       <!--label for="txtdid" class="control-label col-md-2 col-sm-2 col-xs-12">New Description</label-->
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -155,7 +163,7 @@
                       
                       </div>
                     </div>
-					<div class="item form-group">
+					<div class="item form-group ">
                       <!--label class="control-label col-md-2 col-sm-2 col-xs-12">Assign to</label-->
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <select name="assignto" class="form-control col-md-12 col-xs-12">
@@ -169,19 +177,20 @@
 					  <div class="col-md-2 col-sm-2 col-xs-12">
 						<select class="form-control"  name="status">
 							<option value="In Progress">In Progress</option>
-							<option value="Resolve">Resolve</option>
-							<option value="Close">Close</option>
+							<option value="Reassigned">Reassigned</option>
+							<option value="Resolved">Resolved</option>
+							<option value="Closed">Closed</option>
 						</select>
 					  </div>
 					  
 					  <!--label  class="control-label col-md-2 col-sm-2 col-xs-12">Hour(s) Spent<span class="required">*</span></label-->
                       <div class="col-md-2 col-sm-2 col-xs-12">
-                        <input type="text" required placeholder="Hours Spent(s)" name="hours_spent"   class="form-control col-md-7 col-xs-12" >
+                        <input type="text" required placeholder="Hours Spent(s)" name="hours_spent" id="hr"  class="form-control col-md-7 col-xs-12" >
                       </div>
 					  
 					  
 					          <!--label for="name" class="control-label col-md-2 col-sm-2 col-xs-12">Notify via Email </label-->
-								<div class="col-md-3 col-sm-3 col-xs-12">
+								<div class="col-md-4 col-sm-4 col-xs-12">
 		
 										<select class="form-control" id="notifyemail" name="notifyemail[]" placeholder="Email" multiple>
 											<option value="0" >All </option>
@@ -271,30 +280,30 @@
     // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
     $('form')
       //.on('blur', 'input[required], input.optional, select.required', validator.checkField)
-      //.on('blur', 'input[required], input.optional', validator.checkField)
+      .on('blur', 'input[required], input.optional', validator.checkField)
      // .on('change', 'select.required', validator.checkField)
-      //.on('keypress', 'input[required][pattern]', validator.keypress);
+      //.on('keypress', '#hr', validator.keypress);
 
-   /*  $('.multi.required')
+     /* $('.multi.required')
       .on('keyup blur', 'input', function() {
         validator.checkField.apply($(this).siblings().last()[0]);
-      });
- */
+      }); */
+
     // bind the validation to the form submit event
     //$('#send').click('submit');//.prop('disabled', true);
 
-  /*   $('form').submit(function(e) {
+    $('form').submit(function(e) {
       e.preventDefault();
-      var submit = true;
-      // evaluate the form using generic validaing
-      if (!validator.checkAll($(this))) {
+      var submit = true; 
+      // evaluate the form using generic validaing 
+      if ($("#hr").val()=="") {
         submit = false;
       }
 
       if (submit)
         this.submit();
       return false;
-    }); */
+    });  
 
     /* FOR DEMO ONLY */
   /*   $('#vfields').change(function() {

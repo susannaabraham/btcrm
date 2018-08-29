@@ -18,7 +18,7 @@ class tasks_model extends CI_Model
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
 			$users=	$row->users; 
-				$user=(explode(" ",$users)); 
+				$user=(explode(",",$users)); 
 				for($i=0;$i<count($user);$i++){ 
 				if($user[$i]==$current_user){
                 $pj .= $row->id.","; 
@@ -29,6 +29,8 @@ class tasks_model extends CI_Model
             
         }
 		 $pj=rtrim($pj,",");
+		 
+
 		
 		$sql ="SELECT * FROM tasks where project IN ($pj) ";
 		$name=($this->input->get("project",true)) ? $this->input->get("project",true) : 0;
@@ -72,7 +74,8 @@ class tasks_model extends CI_Model
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
 			$users=	$row->users; 
-				$user=(explode(" ",$users)); 
+				$user=(explode(",",$users));
+				//echo $current_user;
 				for($i=0;$i<count($user);$i++){ 
 				if($user[$i]==$current_user){
                 $pj .= $row->id.","; 
@@ -82,7 +85,10 @@ class tasks_model extends CI_Model
             }
             
         }
-		 $pj=rtrim($pj,",");
+		
+			
+		 $pj=rtrim($pj,","); 
+
 		$sql ="SELECT count(*) as count FROM tasks where  project IN ($pj) ";
 					   
 		$name=($this->input->get("project",true)) ? $this->input->get("name",true) : 0;
@@ -210,7 +216,7 @@ class tasks_model extends CI_Model
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
 			$users=	$row->users; 
-				$user=(explode(" ",$users)); 
+				$user=(explode(",",$users)); 
 				for($i=0;$i<count($user);$i++){ 
 				if($user[$i]==$current_user){
                 $data[] = $row; 
