@@ -90,6 +90,14 @@
 					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/tasktype/"); ?>">TASK TYPE</a></li>
 					<?php } ?>
+					
+					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<li><a href="<?php echo base_url("/admin/expensetype/"); ?>">EXPENSE TYPE</a></li>
+					<?php } ?>
+					
+					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<li><a href="<?php echo base_url("/admin/expensesubtype/"); ?>">EXPENSE SUBTYPE</a></li>
+					<?php } ?>
 				
 					
                   </ul>
