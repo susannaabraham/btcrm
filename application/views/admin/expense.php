@@ -182,7 +182,7 @@
 											$caldate=($this->input->get("single_cal1",true));
 													
 										?>
-											 <input type="text" aria-describedby="inputSuccess2Status" placeholder="Due Date" id="single_cal1" name="single_cal1" value="<?php echo $caldate; ?>" class="form-control has-feedback-left">
+											 <input type="text" aria-describedby="inputSuccess2Status" autocomplete="off" placeholder="Due Date" id="single_cal1" name="single_cal1" value="<?php echo $caldate; ?>" class="form-control has-feedback-left">
 											<span aria-hidden="true" class="fa fa-calendar-o form-control-feedback left"></span>
 									</div> 
 								</div>
