@@ -247,8 +247,9 @@
 								for($i=0;$i<count($results);$i++){ 
 								$stle="";
 								$date1=date('Y-m-d');
-								$date2=$results[$i]->duedate;;
-								if(strtotime($date1) > strtotime($date2))
+								$date2=$results[$i]->duedate;
+								$status=$results[$i]->status;
+								if(strtotime($date1) > strtotime($date2) && ($status!="Closed"))
 								{  $stle="style='background-color: #ff0e061a;'"; } ?>
 								
 							<TR <?php  echo $stle; ?> role="row" class="odd" >
