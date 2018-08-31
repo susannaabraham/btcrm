@@ -53,11 +53,11 @@ class login extends CI_Controller
 				
 					if(($duser[0]->groups)!=0){
 
-						redirect('/admin/dashboardgroup',301);
+						redirect('/admin/projects',301);
 
 					}else{
 
-						redirect('/admin/dashboard',301);
+						redirect('/admin/projects',301);
 					}
 			}
 		}

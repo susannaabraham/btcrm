@@ -44,25 +44,30 @@
 					<li>
 					<?php $groups=$this->session->userdata('groups');
 					
-					if($groups=='0'){
+					/* if($groups=='0'){
 					?>
 					<a href="<?php echo base_url("/admin/dashboard");?>">DASHBOARD</a>
 
 					<?php } else {?>
 					<a href="<?php echo base_url('/admin/dashboardgroup')."?keyword=".$groups;?>">DASHBOARD</a>
-					<?php } ?>
+					<?php } */ ?>
 					</li>
 					<?php } ?>
                     <?php if(false===$this->user_model->haspermission2(1)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/projects/"); ?>">PROJECTS</a></li>
+					<?php } ?> 
 					
-					<?php } ?>  <?php if(false===$this->user_model->haspermission2(3)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(3)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/tasks/"); ?>">TASKS</a></li>
+					<?php } ?>
+					
+					<?php if(false===$this->user_model->haspermission2(3)){  } else {  ?>
+					<li><a href="<?php echo base_url("/admin/expense/"); ?>">EXPENSE</a></li>
 					<?php } ?>
 					 
 					
                   </ul>
-                </li>
+                 </li>
 					<?php } ?>
 					<?php } ?>	<?php $sql ="SELECT * from `module_admin` where enabled='1' and modulename='CRM MASTER'";
 					$query=$this->db->query($sql); 
@@ -76,8 +81,13 @@
 					<?php $this->load->model('user_model');
 					if(false===$this->user_model->haspermission2(2)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/department/"); ?>">DEPARTMENT</a></li>
+					<?php } ?> 
 					
-					<?php } ?>  <?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<li><a href="<?php echo base_url("/admin/status/"); ?>">STATUS</a></li>
+					<?php } ?>  
+					
+					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/tasktype/"); ?>">TASK TYPE</a></li>
 					<?php } ?>
 				

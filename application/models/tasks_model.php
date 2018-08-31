@@ -11,7 +11,28 @@ class tasks_model extends CI_Model
 
 	public function fetch_data($limit,$start)
 	{
-		$sql ="SELECT * FROM tasks where 1=1";
+		$pj="";
+			$current_user=$this->session->userdata('id');
+		$sql1 = "SELECT * FROM projects";
+		$query=$this->db->query($sql1);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			$users=	$row->users; 
+				$user=(explode(",",$users)); 
+				for($i=0;$i<count($user);$i++){ 
+				if($user[$i]==$current_user){
+                $pj .= $row->id.","; 
+				
+				}
+				}
+            }
+            
+        }
+		 $pj=rtrim($pj,",");
+		 
+
+		
+		$sql ="SELECT * FROM tasks where project IN ($pj) ";
 		$name=($this->input->get("project",true)) ? $this->input->get("project",true) : 0;
 		if(!empty($name))
 		{
@@ -46,7 +67,29 @@ class tasks_model extends CI_Model
     }
 	public function record_count()
 	{
-		$sql ="SELECT count(*) as count FROM tasks where 1=1 ";
+		$pj="";
+			$current_user=$this->session->userdata('id');
+		$sql1 = "SELECT * FROM projects";
+		$query=$this->db->query($sql1);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			$users=	$row->users; 
+				$user=(explode(",",$users));
+				//echo $current_user;
+				for($i=0;$i<count($user);$i++){ 
+				if($user[$i]==$current_user){
+                $pj .= $row->id.","; 
+				
+				}
+				}
+            }
+            
+        }
+		
+			
+		 $pj=rtrim($pj,","); 
+
+		$sql ="SELECT count(*) as count FROM tasks where  project IN ($pj) ";
 					   
 		$name=($this->input->get("project",true)) ? $this->input->get("name",true) : 0;
 		if(!empty($name))
@@ -167,14 +210,22 @@ class tasks_model extends CI_Model
 	}	
 	public function fetchprojects()
 	{
-		$sql = "SELECT * FROM projects ";
+		$current_user=$this->session->userdata('id');
+		$sql = "SELECT * FROM projects";
 		$query=$this->db->query($sql);
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
-                $data[] = $row;
+			$users=	$row->users; 
+				$user=(explode(",",$users)); 
+				for($i=0;$i<count($user);$i++){ 
+				if($user[$i]==$current_user){
+                $data[] = $row; 
+				//print_r($data);
+				}
+				}
             }
             return $data;
-        }
+        } //die;
         return false;
 	}
 	public function fetchusers()
@@ -257,7 +308,7 @@ class tasks_model extends CI_Model
 	{
 
 		$id=$this->input->post('task_id');
-		echo $sql = "delete from task_activity where task_id='$id'";
+		 $sql = "delete from task_activity where task_id='$id'";
 		$query=$this->db->query($sql);
 		$sql1 = "delete from tasks where task_id='$id'";
 		$query=$this->db->query($sql1);

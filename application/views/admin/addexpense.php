@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Tasks</title>
+  <title>Expense</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -19,7 +19,8 @@
   <!-- Custom styling plus plugins -->
   <link href="<?php echo base_url("/admin-assets"); ?>/css/custom.css" rel="stylesheet">
   <link href="<?php echo base_url("/admin-assets"); ?>/css/icheck/flat/green.css" rel="stylesheet">
-  <link href="<?php echo base_url("/admin-assets"); ?>/css/select/select2.min.css" rel="stylesheet">
+	 <link href="<?php echo base_url("/admin-assets"); ?>/css/select/select2.min.css" rel="stylesheet">
+
 
   <script src="<?php echo base_url("/admin-assets"); ?>/js/jquery.min.js"></script>
   <script src="<?php echo base_url("/admin-assets"); ?>/js/validator/validator.js"></script>
@@ -27,16 +28,15 @@
  <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/datepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/select/select2.full.js"></script>
 
-      
        <script language="javascript">
 	   $(document).ready(function(){
 	   		$(".x_panel").css("min-height",$(window).height()-200);
-			$(".sel").select2();
+			$("#project").select2();
 			
 		});
 		
 	   $(function() {
-		  $('input[name="duedate"]').daterangepicker({
+		  $('input[name="startdate"]').daterangepicker({
 			  autoUpdateInput: false,
 			singleDatePicker: true,
 			  locale: {
@@ -45,10 +45,10 @@
 				   "firstDay": 1
 			  }
 		  });
-		  $('input[name="duedate"]').on('apply.daterangepicker', function(ev, picker) {
+		  $('input[name="startdate"]').on('apply.daterangepicker', function(ev, picker) {
 			  $(this).val(picker.startDate.format('YYYY/MM/DD'));
 		  });
-		  $('input[name="duedate"]').on('cancel.daterangepicker', function(ev, picker) {
+		  $('input[name="startdate"]').on('cancel.daterangepicker', function(ev, picker) {
 			  $(this).val('');
 		  });
 		});
@@ -78,7 +78,7 @@
           <div class="page-title">
             <div class="title_left">
               <h3>
-                    CREATE TASKS
+                   Expense
 
                 </h3>
             </div>
@@ -101,7 +101,7 @@
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Create Tasks</h2>
+                  <h2>Add Expense</h2>
 
 
                   <div class="clearfix"></div>
@@ -110,137 +110,59 @@
 				<?php if($message){
 					echo $message;
 				} else { ?>
-                  <form  class="form-horizontal form-label-left" method="post" action="<?php echo base_url("/admin/tasks/savetask");?>"  id="AddForm" name="AddForm">
+                  <form  class="form-horizontal form-label-left" method="post" action="<?php echo base_url("/admin/expense/saveexpense");?>"  id="AddForm" name="AddForm">
 
-
-
-				  <div class="item form-group">
+					<div class="item form-group">
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Project<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-					 <select class="form-control sel" id="project" name="project" placeholder="Select Project">
-											<?php for($i=0;$i<count($projects);$i++){?>
-											<option value="<?php echo $projects[$i]->id?>"><?php echo $projects[$i]->name?></option>
-											<?php } ?>
-											</select>
+							<select class="form-control sel" id="project" name="project" placeholder="Select Project">
+								<?php for($i=0;$i<count($projects);$i++){?>
+									<option value="<?php echo $projects[$i]->id?>"><?php echo $projects[$i]->name?></option>
+								<?php } ?>
+							</select>
                       </div>
                     </div>
-                    <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Task title <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" required="required" placeholder="Task title" name="title"   class="form-control col-md-7 col-xs-12" >
-                      </div>
-                    </div>
-					
 					<div class="item form-group">
-                      <label for="txtdid" class="control-label col-md-3 col-sm-3 col-xs-12">Description
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense Type<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea  placeholder="Please enter Group Name" name="description" class="form-control col-md-7 col-xs-12" id="txtdid"> </textarea>
+							<select class="form-control sel" id="expense_type" name="expense_type" placeholder="Select Project">
+								<option value="1">Demo Expense</option>
+								<option value="2">Sales Expense</option>
+								<option value="3">Implementation Expense</option>
+								<option value="4">After sales Expense</option>
+							</select>
                       </div>
                     </div>
-					
-					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Assign to<span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select name="assignto" class="form-control col-md-7 col-xs-12" id="selectdis" required>
-						<option value="">Select User</option>
-						<?php for($i=0;$i<count($users);$i++){?>
-						<option value="<?php echo $users[$i]->id; ?>"><?php echo $users[$i]->uname; ?></option>
-						<?php } ?>
-						</select>
-                      </div>
-                    </div>
-					
-					
-						
-					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Due date <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" required="required" placeholder="Due date " name="duedate" autocomplete="off"   class="form-control col-md-7 col-xs-12" >
-                      </div>
-                    </div>
-					
-					
-					
-					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Priority <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="radio" name="priority" value="LOW"  > Low
-                        <input type="radio" name="priority" value="Medium" checked="checked"> Medium
-                        <input type="radio" name="priority" value="High"> High
-                      </div>
-                    </div>
-										
 					<div class="item form-group">
-					  <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Task Type <span class="required">*</span>
-					  </label>
-
-					   <div class="col-md-6 col-sm-6 col-xs-12">
-						<select class="form-control required" required id="type" name="tasktype">
-							<option value="">-Select Task Type-</option>
-							<?php for($i=0;$i<count($tasktype);$i++){?>
-						<option value="<?php echo $tasktype[$i]->id; ?>"><?php echo $tasktype[$i]->name; ?></option>
-						<?php } ?>
-						</select>
-					  </div>
-					</div>
-					<div class="item form-group">
-					  <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Status 
-					  </label>
-
-					   <div class="col-md-6 col-sm-6 col-xs-12">
-						<select class="form-control required" id="status" name="status">
-							
-							<option value="New">NEW</option>
-							<option value="In Progress">In Progress</option>
-							<option value="Resolve">Resolve</option>
-							<option value="Close">Close</option>
-						</select>
-					  </div>
-					</div>
-					
-				  <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Estimated Hour(s)<span class="required">*</span>
-                      </label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" required="required" placeholder="Estimated Hour(s)" name="estimated_hours"   class="form-control col-md-7 col-xs-12" >
+							<textarea name="discription" placeholder="Description" class="form-control col-md-7 col-xs-12"></textarea>
                       </div>
-                    </div>	
-					
-					
-					<div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Hour(s) Spent
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text"  placeholder="Hours Spent(s)" name="hours_spent"   class="form-control col-md-7 col-xs-12" >
-                      </div>
-                    </div>	
-					
-					
-						
+                    </div>
+
 					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Notify via Email 
-                      </label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Transportation cost</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-		
-							<select class="form-control sel" id="notifyemail" name="notifyemail[]" placeholder="Email" multiple>
-											<!--option value="0" >All </option-->
-											<?php for($i=0;$i<count($users);$i++){ ?>
-											<option value="<?php echo  $users[$i]->id; ?>"><?php echo  $users[$i]->uname;?></option>												
-											<?php } ?>
-											</select>
+                        <input type="text"  placeholder="Transportation cost" name="transport_cost"   class="form-control col-md-7 col-xs-12" >
+                      </div>
+                    </div>
+					 <div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Travel cost</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" placeholder="Travel cost" name="travel_cost"   class="form-control col-md-7 col-xs-12" >
+                      </div>
+                    </div> 
+					<div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Stay cost</label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" placeholder="Stay cost" name="stay_cost"   class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
 					
-						
 					
-
-
+					
                     <div class="ln_solid"></div>
                     <div class="form-group">
                       <div class="col-md-6 col-md-offset-3">
@@ -291,7 +213,7 @@
 
   <script>
     // initialize the validator function
-/*     validator.message['date'] = 'not a real date';
+    validator.message['date'] = 'not a real date';
 
     // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
     $('form')
@@ -321,7 +243,7 @@
     });
 
     /* FOR DEMO ONLY */
-   /* $('#vfields').change(function() {
+    $('#vfields').change(function() {
       $('form').toggleClass('mode2');
     }).prop('checked', false);
 
@@ -329,7 +251,7 @@
       validator.defaults.alerts = (this.checked) ? false : true;
       if (this.checked)
         $('form .alert').remove();
-    }).prop('checked', false); */
+    }).prop('checked', false);
   </script>
 
 </body>

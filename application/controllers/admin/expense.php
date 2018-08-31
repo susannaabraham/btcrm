@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class tasks extends Domain_Controller {
+class expense extends Domain_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,7 +22,7 @@ class tasks extends Domain_Controller {
             parent::__construct();
 			$this->load->library('session'); 
             $this->load->helper('url');
-			$this->load->model('tasks_model');
+			$this->load->model('expense_model');
 			$this->load->library("pagination");
        }
 
@@ -30,23 +30,23 @@ class tasks extends Domain_Controller {
 	{ 
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(2)){ 
+		if(false===$this->user_model->haspermission2(6)){ 
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
 			$data['message']=$message;
-		$this->load->view('admin/tasks',$data);
+		$this->load->view('admin/expense',$data);
 		} else {  
 		//permission setting//
 		$data['url']=base_url();
 		$config = array();
-		$config["base_url"] = base_url('admin/tasks/index');
+		$config["base_url"] = base_url('admin/expense/index');
 	    $config["per_page"] =10;
 		$config["uri_segment"] =4;
 		$config['suffix'] = '?' . http_build_query($_GET, '', "&");
 		$config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);
 		
-		$count = $this->tasks_model->record_count(); 
+		$count = $this->expense_model->record_count(); 
 		$config['total_rows'] = $count[0]->count;
 		$this->pagination->initialize($config);
 
@@ -55,95 +55,90 @@ class tasks extends Domain_Controller {
 		{
 			$page=0;
 		}
-		$data['users']=$this->tasks_model->fetchusers();
-		$data['tasktype']=$this->tasks_model->tasktype();
-		$data['projects']=$this->tasks_model->fetchprojects();
-		$data["results"] = $this->tasks_model->fetch_data($config["per_page"], $page); 
+		
+		$data["results"] = $this->expense_model->fetch_data($config["per_page"], $page); 
 		$data["links"] = $this->pagination->create_links();
 		
-		$this->load->view('admin/tasks',$data);
+		$this->load->view('admin/expense',$data);
 		}
 	}
 
-	public function addtasks()
+	public function addexpense()
 	{
 	  //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(3)){
+		if(false===$this->user_model->haspermission2(24)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
 			$data['message']=$message;
-		$this->load->view('admin/addtasks',$data);
+		$this->load->view('admin/addexpense',$data);
 		} else {
 		//permission setting//
 		$data['url']=base_url();
-		$data['projects']=$this->tasks_model->fetchprojects();
-		$data['users']=$this->tasks_model->fetchusers();
-		$data['tasktype']=$this->tasks_model->tasktype();
-		$this->load->view('admin/addtasks',$data);
+		$data['projects']=$this->expense_model->fetchprojects(); //print_r($data['projects']);
+		$this->load->view('admin/addexpense',$data);
 		}
 		
 	}
-	public function savetask()
+	public function saveexpense()
 	{
 		
 		header('content-type: application/json; charset=utf-8');
-		$result=$this->tasks_model->doAddtask();
+		$result=$this->expense_model->doAddexpense();
 		if($result>0){
-			redirect('/admin/tasks',301);
+			redirect('/admin/expense',301);
 		}else{
 			echo json_encode(array("success"=>false));
 		}
 	}
    	public function edit()
-	{ 
+	{
 		 //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(4)){
+		if(false===$this->user_model->haspermission2(7)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
 			$data['message']=$message;
-		$this->load->view('admin/edittasks',$data);
+		$this->load->view('admin/editexpense',$data);
 		} else {
 		//permission setting//
-		$data['users']=$this->tasks_model->fetchusers();
-		$data["results"]=$this->tasks_model->Searchtask();
-		$data["task_results"]=$this->tasks_model->task_results();
-		$data['tasktype']=$this->tasks_model->tasktype();
-        $this->load->view('admin/edittask',$data);
+
+		$data["expense"]=$this->expense_model->Searchexpense();
+		$data['projects']=$this->expense_model->fetchprojects(); 
+        $this->load->view('admin/editexpense',$data);
 		}
 	}
-	public function updatetasks()
+	public function editexpense()
 	{
-		$id=$this->input->post('id'); 
+		
 		header('content-type: application/json; charset=utf-8');
-		$result=$this->tasks_model->doupdatetask();
+		$result=$this->expense_model->doupdateexpense();
 		if($result>0){
-			redirect('/admin/tasks/edit?keyword='.$id,301);
+			redirect('/admin/expense',301);
 		}else{
 			echo json_encode(array("success"=>false));
 		}
 	}
-	public function deltask()
+	public function deleteexpense()
 	{	
-		/* //permission setting//
+		//permission setting//
 		$this->load->model('user_model');
 		if(false===$this->user_model->haspermission2(5)){
 		echo json_encode(array("success"=>false));
 		
 		} else {
-		//permission setting// */
+		//permission setting//
 		header('content-type: application/json; charset=utf-8');
-		$result=$this->tasks_model->doDelete();
+		$result=$this->expense_model->doDelete();
 		if($result>0)
 		{
 			echo json_encode(array("success"=>true));
 		}else{
 			echo json_encode(array("success"=>false));
 		}
-		// }
+		}
 	}
 	
 	
