@@ -23,13 +23,9 @@ class login_model extends CI_Model{
 	
 	public function adminLogin($user,$pass)
 	{		
-		$this->db->select('*');
-		$this->db->where('uname =',$user);
-		$this->db->where('pass =',$pass);
-		$this->db->limit(1);
-		$this->db->from('admin_login');
-		$query = $this->db->get();
-		//print_r($query);
+		
+		$sql = "SELECT * FROM admin_login Where `uname`='".$user."' and `pass`=MD5('".$pass."')";
+		$query=$this->db->query($sql);
 		return $query->result();
 	}
 	

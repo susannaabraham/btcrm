@@ -21,7 +21,6 @@ class login extends CI_Controller
 		$pass=$this->input->post('password');
 		//print_r($pass);
 		$duser=$this->login_model->adminLogin($user,$pass);
-		print_r(count($duser));
 		if(count($duser)>0)
 		{
 		

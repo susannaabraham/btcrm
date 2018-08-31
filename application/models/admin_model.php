@@ -77,6 +77,7 @@ class admin_model extends CI_Model
 	{
 		$username =$this->input->post('username');	
 		$password =$this->input->post('password');	
+		$pass =md5($password);
 		$dashboard =$this->input->post('dashboard');	
 		$email =$this->input->post('email');	
 		$mode = $this->input->post('mode');	
@@ -88,7 +89,7 @@ class admin_model extends CI_Model
 		
 		
 		$sql = "INSERT INTO `admin_login`(`id`, `uname`, `pass`, `mode`,`groups`,`dashboard`,`email`) VALUES 
-		('','$username','$password','$mode','$gid','$dashboard','$email')";
+		('','$username','$pass','$mode','$gid','$dashboard','$email')";
 		$query=$this->db->query($sql); 
 		return $this->db->affected_rows();
 	}
@@ -109,6 +110,8 @@ class admin_model extends CI_Model
 		$id =$this->input->post('id');	
 		$username =$this->input->post('username');	
 		$password =$this->input->post('password');	
+		$pass =md5($password);
+
 		$dashboard =$this->input->post('dashboard');	
 		$mode = $this->input->post('mode');
 		$gid = $this->input->post('gid'); 
@@ -118,7 +121,7 @@ class admin_model extends CI_Model
 		$gid=implode(",", $gid);
 		//print_r($gid); die;
 		
-		$update = "UPDATE `admin_login` SET `uname`='$username',`pass`='$password',`mode`='$mode',`groups`='$gid',`dashboard`='$dashboard' WHERE id='$id'";
+		$update = "UPDATE `admin_login` SET `uname`='$username',`pass`='$pass',`mode`='$mode',`groups`='$gid',`dashboard`='$dashboard' WHERE id='$id'";
 		$query=$this->db->query($update); 
 		
 		return true;
