@@ -58,7 +58,8 @@ class expense extends Domain_Controller {
 		
 		$data["results"] = $this->expense_model->fetch_data($config["per_page"], $page); 
 		$data["links"] = $this->pagination->create_links();
-		
+		$data['projects']=$this->expense_model->fetchprojects(); 
+		$data['expense_type']=$this->expense_model->expense_type();
 		$this->load->view('admin/expense',$data);
 		}
 	}
@@ -77,6 +78,8 @@ class expense extends Domain_Controller {
 		//permission setting//
 		$data['url']=base_url();
 		$data['projects']=$this->expense_model->fetchprojects(); //print_r($data['projects']);
+		$data['expense_type']=$this->expense_model->expense_type(); //print_r($data['expense_type']);
+		$data['expense_sub_type']=$this->expense_model->expense_sub_type(); //print_r($data['projects']);
 		$this->load->view('admin/addexpense',$data);
 		}
 		
@@ -107,6 +110,9 @@ class expense extends Domain_Controller {
 
 		$data["expense"]=$this->expense_model->Searchexpense();
 		$data['projects']=$this->expense_model->fetchprojects(); 
+		$data['expense_type']=$this->expense_model->expense_type(); //print_r($data['expense_type']);
+		$data['expense_sub_type']=$this->expense_model->expense_sub_type(); //print_r($data['projects']);
+		
         $this->load->view('admin/editexpense',$data);
 		}
 	}

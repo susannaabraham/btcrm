@@ -177,7 +177,7 @@ class admin extends Domain_Controller {
 		$data["cgrp"] = $this->admin_model->Fill_call_group();
 		
 		$data['ctype']=$this->admin_model->Fill_channel_types();
-		$data['ctype1']=$this->admin_model->groups();
+	//	$data['ctype1']=$this->admin_model->groups();
 		$data['results']=$this->admin_model->search();
 		$this->load->view('admin/editadmin',$data);
 		}

@@ -24,6 +24,10 @@
 
   <script src="<?php echo base_url("/admin-assets"); ?>/js/jquery.min.js"></script>
   <script src="<?php echo base_url("/admin-assets"); ?>/js/validator/validator.js"></script> 
+  
+   <!-- daterangepicker -->
+ <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/moment/moment.min.js"></script>
+ <script type="text/javascript" src="<?php echo base_url("/admin-assets"); ?>/js/datepicker/daterangepicker.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -65,6 +69,38 @@
 					});	 
 				}		
 			}
+			$(function() {
+
+		  $('input[name="single_cal1"]').daterangepicker({
+			  autoUpdateInput: false,
+			  timePicker: true,
+			  timePicker24Hour:true,
+			  timePickerSeconds:true,
+			  locale: {
+				  cancelLabel: 'Clear'
+			  }
+			  ,
+			  ranges: {
+           'Today': [moment().startOf('day'), moment()],
+           'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+		   'This Week': [moment().startOf('isoweek').isoWeekday(1), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			}
+			  
+		  });
+
+		  $('input[name="single_cal1"]').on('apply.daterangepicker', function(ev, picker) {
+			  $(this).val(picker.startDate.format('DD/MM/YYYY hh:mm:ss') + ' - ' + picker.endDate.format('DD/MM/YYYY hh:mm:ss'));
+		  });
+
+		  $('input[name="single_cal1"]').on('cancel.daterangepicker', function(ev, picker) {
+			  $(this).val('');
+		  });
+
+		});
 		</script>
 
 </head>
@@ -117,19 +153,39 @@
 			 <form id="ShowForm" name="RptForm" class="form-horizontal"  role="form" action="<?php echo base_url("/admin/expense"); ?>?<?php echo http_build_query($_GET, '', "&");?>">							
 						<fieldset>
 							<div class="row">
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 									<div class="form-group">
-										
-											<?php
-												$name=($this->input->get("name",true));
-											?>
-											<input class="form-inline form-control" id="name" name="name" placeholder="Expense Name" type="text" value="<?php echo $name; ?>">
-										
+										<?php  $project=($this->input->get("project",true));	?>
+										<select name="project" class="form-control sel" id="project" >
+											<option value="">-Select Project-</option>
+											<?php for($i=0;$i<count($projects);$i++){?>
+											<option value="<?php echo $projects[$i]->id?>" <?php echo ($projects[$i]->id==$project)? "selected":""; ?>><?php echo $projects[$i]->name?></option>
+											<?php } ?>
+										</select>							
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<?php  $exp=($this->input->get("expense_type",true));	?>
+										<select name="expense_type" class="form-control sel" id="project" >
+											<option value="">-Select Expense-</option>
+											<?php for($i=0;$i<count($expense_type);$i++){?>
+											<option value="<?php echo $expense_type[$i]->exp_id?>" <?php echo ($expense_type[$i]->exp_id==$exp)? "selected":""; ?>><?php echo $expense_type[$i]->exp_name?></option>
+											<?php } ?>
+										</select>							
 									</div>
 								</div>
 								
-								
-								
+								<div class="col-lg-2">
+									<div class="form-group">											
+										<?php
+											$caldate=($this->input->get("single_cal1",true));
+													
+										?>
+											 <input type="text" aria-describedby="inputSuccess2Status" placeholder="Due Date" id="single_cal1" name="single_cal1" value="<?php echo $caldate; ?>" class="form-control has-feedback-left">
+											<span aria-hidden="true" class="fa fa-calendar-o form-control-feedback left"></span>
+									</div> 
+								</div>
 								
 
 								
@@ -174,10 +230,19 @@
 
 								if(isset($results[0]->expense_id))
 						        {
-								for($i=0;$i<count($results);$i++){ ?>
+								for($i=0;$i<count($results);$i++){ 
+								$project_id=$results[$i]->project_id;
+									$expense_type=$results[$i]->expense_type;
+									$sql ="SELECT name FROM projects where id='$project_id'";
+									$query=$this->db->query($sql); 
+									$project=$query->result(); 
+									$sql1 ="SELECT * FROM expense_type where exp_id='$expense_type'";
+									$query1=$this->db->query($sql1); 
+									$expense_type=$query1->result();
+								?>
 							<TR id="dat_<?php echo $results[$i]->expense_id; ?>" role="row" class="odd">
-								<TD><?php echo $results[$i]->project_id; ?></TD>
-								<TD><?php echo $results[$i]->expense_type; ?></TD>
+								<TD><?php echo $project[0]->name; ?></TD>
+								<TD><?php echo $expense_type[0]->exp_name; ?></TD>
 								<TD><?php echo $results[$i]->posted_date; ?></TD>
 								<TD><?php echo $results[$i]->posted_by; ?></TD>
 

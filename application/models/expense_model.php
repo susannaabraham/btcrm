@@ -10,12 +10,40 @@ class expense_model extends CI_Model
 
 	public function fetch_data($limit,$start)
 	{
+		
 		$sql ="SELECT * FROM expense where 1=1";
-		$name=($this->input->get("name",true)) ? $this->input->get("name",true) : 0;
-		if(!empty($name))
+		$project=($this->input->get("project",true)) ? $this->input->get("project",true) : 0;
+		if(!empty($project))
 		{
-			$sql .=" AND `project_id` = '$name' ";
+			$sql .=" AND `project_id` = '$project' ";
 		}
+		$expense_type=($this->input->get("expense_type",true)) ? $this->input->get("expense_type",true) : 0;
+		if(!empty($expense_type))
+		{
+			$sql .=" AND `expense_type` = '$expense_type' ";
+		}
+		 $caldate=($this->input->get("single_cal1",true)) ? $this->input->get("single_cal1",true) : 0;
+		if($caldate!=0){
+		$arr = explode('-',$caldate, 2);
+		$_from=$arr[0];
+		$_to=$arr[1];
+		}
+		
+		if(!empty($_from)&&!empty($_to))
+		{
+			$_from = str_replace('/', '-', $_from);
+			$date = date_create($_from);
+            $_from=date_format($date, 'Y-m-d H:i:s');
+			$_to = str_replace('/', '-', $_to);
+			$date2 = date_create($_to);
+			$_to=date_format($date2, 'Y-m-d H:i:s');
+			if($_from==$_to){
+				
+				$_to= $_to ." 23:59:59";
+			}
+			
+			$sql .=" AND (posted_date BETWEEN '$_from' AND '$_to') "; 
+		} 
 		
 		$sql .=" ORDER BY `expense_id` desc LIMIT $start,$limit";
       
@@ -69,27 +97,58 @@ class expense_model extends CI_Model
         } //die;
         return false;
 	}
+	public function expense_type()
+	{
+		
+		$sql = "SELECT * FROM expense_type where active=1";
+		$query=$this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			
+                $data[] = $row; 
+				
+            }
+            return $data;
+        } //die;
+        return false;
+	}
+	public function expense_sub_type()
+	{
+		
+		$sql = "SELECT * FROM expense_sub_type where active=1";
+		$query=$this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			
+                $data[] = $row; 
+				
+            }
+            return $data;
+        } //die;
+        return false;
+	}
 	public function doAddexpense()
 	{
 
 			$project_id=$this->input->post('project');
 			$expense_type=$this->input->post('expense_type');
 			$discription=$this->input->post('discription');
-			$transport_cost=$this->input->post('transport_cost');
-			$travel_cost=$this->input->post('travel_cost');
-			$stay_cost=$this->input->post('stay_cost');
+			$expense_sub_type=$this->input->post('expense_sub_type');
+			$cost=$this->input->post('cost');
 			$posted_by=$this->session->userdata('login_id');
-			$posted_date=date("Y-m-d H:i:s");
+			$create_date=$this->input->post('create_date');
+			$create_date = str_replace('/', '-', $create_date);
+			$date = date_create($create_date);
+            $create_date=date_format($date, 'Y-m-d H:i:s');
 
 			$data = array(
 				'project_id' => $project_id,
 				'expense_type' => $expense_type,
 				'discription' => $discription,
-				'transport_cost' => $transport_cost,
-				'travel_cost' => $travel_cost,
-				'stay_cost' => $stay_cost,
+				'expense_sub_type' => $expense_sub_type,
+				'cost' => $cost,
 				'posted_by' => $posted_by,
-				'posted_date' => $posted_date
+				'posted_date' => $create_date
 			);
 
 			$this->db->insert('expense', $data);
@@ -118,21 +177,24 @@ class expense_model extends CI_Model
 	public function doupdateexpense()
 	{
 			$expense_id=$this->input->post('expense_id');
+			$project_id=$this->input->post('project');
 			$expense_type=$this->input->post('expense_type');
 			$discription=$this->input->post('discription');
-			$transport_cost=$this->input->post('transport_cost');
-			$travel_cost=$this->input->post('travel_cost');
-			$stay_cost=$this->input->post('stay_cost');
-			$posted_by=$this->session->userdata('login_id');
-			$posted_date=date("Y-m-d H:i:s");
+			$expense_sub_type=$this->input->post('expense_sub_type');
+			$cost=$this->input->post('cost');
+			//$posted_by=$this->session->userdata('login_id');
+			$create_date=$this->input->post('create_date');
+			$create_date = str_replace('/', '-', $create_date);
+			$date = date_create($create_date);
+            $create_date=date_format($date, 'Y-m-d H:i:s');
 
 			$data = array(
-				//'project_id' => $project_id,
+				'project_id' => $project_id,
 				'expense_type' => $expense_type,
 				'discription' => $discription,
-				'transport_cost' => $transport_cost,
-				'travel_cost' => $travel_cost,
-				'stay_cost' => $stay_cost
+				'expense_sub_type' => $expense_sub_type,
+				'cost' => $cost,
+				'posted_date' => $create_date
 			);
 		$this->db->where('expense_id', $expense_id);
 		$this->db->update('expense', $data);

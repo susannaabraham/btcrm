@@ -37,30 +37,32 @@
 			
 	   });
     	
-			
-	   $(function() {
-		  $('input[name="startdate"]').daterangepicker({
-			  autoUpdateInput: false,
-			singleDatePicker: true,
-			  locale: {
-				  cancelLabel: 'Clear',
-				   format: 'YYYY/MM/DD',
-				   "firstDay": 1
-			  }
-		  });
-		  $('input[name="startdate"]').on('apply.daterangepicker', function(ev, picker) {
-			  $(this).val(picker.startDate.format('YYYY/MM/DD'));
-		  });
-		  $('input[name="startdate"]').on('cancel.daterangepicker', function(ev, picker) {
-			  $(this).val('');
-		  });
-		});
+	
 		function goBack() {
     window.history.back();
 }
 		</script>
 		
+<script type="text/javascript">
+	   $(function() {
+		  $('input[name="create_date"]').daterangepicker({
+			  autoUpdateInput: false,
+			singleDatePicker: true,
+			  locale: {
+				  cancelLabel: 'Clear',
+				   format: 'YYYY/MM/DD H:i:s',
+				   "firstDay": 1
+			  }
+		  });
+		  $('input[name="create_date"]').on('apply.daterangepicker', function(ev, picker) {
+			  $(this).val(picker.startDate.format('YYYY/MM/DD HH:mm:ss'));
+		  });
+		  $('input[name="create_date"]').on('cancel.daterangepicker', function(ev, picker) {
+			  $(this).val('');
+		  });
+		});
 
+		</script>
 </head>
 
 
@@ -131,11 +133,21 @@
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense Type<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="expense_type" name="expense_type" placeholder="Select Project">
-								<option value="1"  <?php if($expense[0]->expense_type=='1') { echo "selected"; } ?>>Demo Expense</option>
-								<option value="2" <?php if($expense[0]->expense_type=='2') { echo "selected"; } ?>>Sales Expense</option>
-								<option value="3" <?php if($expense[0]->expense_type=='3') { echo "selected"; } ?>>Implementation Expense</option>
-								<option value="4" <?php if($expense[0]->expense_type=='4') { echo "selected"; } ?>>After sales Expense</option>
+							<select class="form-control sel" id="expense_type" name="expense_type">
+								<?php for($i=0;$i<count($expense_type);$i++){?>
+									<option value="<?php echo $expense_type[$i]->exp_id?>" <?php if($expense[0]->expense_type==$expense_type[$i]->exp_id) { echo "selected"; } ?>><?php echo $expense_type[$i]->exp_name?></option>
+								<?php } ?>
+							</select>
+                      </div>
+                    </div>
+					<div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense SubType<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+							<select class="form-control sel" id="expense_sub_type" name="expense_sub_type">
+								<?php for($i=0;$i<count($expense_sub_type);$i++){?>
+									<option value="<?php echo $expense_sub_type[$i]->exp_subid?>" <?php if($expense[0]->expense_sub_type==$expense_sub_type[$i]->exp_subid) { echo "selected"; } ?>><?php echo $expense_sub_type[$i]->exp_subname?></option>
+								<?php } ?>
 							</select>
                       </div>
                     </div>
@@ -147,23 +159,18 @@
                     </div>
 
 					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Transportation cost</label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12"> cost</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text"  placeholder="Transportation cost" name="transport_cost" value="<?php echo $expense[0]->transport_cost; ?>"  class="form-control col-md-7 col-xs-12" >
+                        <input type="text"  placeholder=" cost" name="cost" value="<?php echo $expense[0]->cost; ?>"  class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
-					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Travel cost</label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Travel cost" name="travel_cost" value="<?php echo $expense[0]->travel_cost; ?>"   class="form-control col-md-7 col-xs-12" >
-                      </div>
-                    </div> 
 					<div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Stay cost</label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12"> Date</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Stay cost" name="stay_cost"  value="<?php echo $expense[0]->stay_cost; ?>"  class="form-control col-md-7 col-xs-12" >
+					    <input type="text"  placeholder=" Date" name="create_date" id="single_cal1" value="<?php echo $expense[0]->posted_date; ?>" class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
+					 
 					
 							
 						    <div class="ln_solid"></div>

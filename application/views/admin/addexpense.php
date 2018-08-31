@@ -34,9 +34,12 @@
 			$("#project").select2();
 			
 		});
-		
-	   $(function() {
-		  $('input[name="startdate"]').daterangepicker({
+	
+		</script>
+
+<script type="text/javascript">
+	 	  $(function() {
+		  $('input[name="create_date"]').daterangepicker({
 			  autoUpdateInput: false,
 			singleDatePicker: true,
 			  locale: {
@@ -45,17 +48,15 @@
 				   "firstDay": 1
 			  }
 		  });
-		  $('input[name="startdate"]').on('apply.daterangepicker', function(ev, picker) {
+		  $('input[name="create_date"]').on('apply.daterangepicker', function(ev, picker) {
 			  $(this).val(picker.startDate.format('YYYY/MM/DD'));
 		  });
-		  $('input[name="startdate"]').on('cancel.daterangepicker', function(ev, picker) {
+		  $('input[name="create_date"]').on('cancel.daterangepicker', function(ev, picker) {
 			  $(this).val('');
 		  });
 		});
 
 		</script>
-
-
 </head>
 
 
@@ -127,11 +128,21 @@
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense Type<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="expense_type" name="expense_type" placeholder="Select Project">
-								<option value="1">Demo Expense</option>
-								<option value="2">Sales Expense</option>
-								<option value="3">Implementation Expense</option>
-								<option value="4">After sales Expense</option>
+							<select class="form-control sel" id="expense_type" name="expense_type">
+								<?php for($i=0;$i<count($expense_type);$i++){?>
+									<option value="<?php echo $expense_type[$i]->exp_id?>"><?php echo $expense_type[$i]->exp_name?></option>
+								<?php } ?>
+							</select>
+                      </div>
+                    </div>
+					<div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense SubType<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+							<select class="form-control sel" id="expense_sub_type" name="expense_sub_type">
+								<?php for($i=0;$i<count($expense_sub_type);$i++){?>
+									<option value="<?php echo $expense_sub_type[$i]->exp_subid?>"><?php echo $expense_sub_type[$i]->exp_subname?></option>
+								<?php } ?>
 							</select>
                       </div>
                     </div>
@@ -143,23 +154,18 @@
                     </div>
 
 					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Transportation cost</label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12"> cost</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text"  placeholder="Transportation cost" name="transport_cost"   class="form-control col-md-7 col-xs-12" >
+                        <input type="text"  placeholder=" cost" name="cost"   class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
-					 <div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Travel cost</label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Travel cost" name="travel_cost"   class="form-control col-md-7 col-xs-12" >
-                      </div>
-                    </div> 
 					<div class="item form-group">
-                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Stay cost</label>
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12"> Date</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Stay cost" name="stay_cost"   class="form-control col-md-7 col-xs-12" >
+					    <input type="text"  placeholder=" Date" name="create_date" id="single_cal1"  class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
+					 
 					
 					
 					
