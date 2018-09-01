@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "login";
 $route['404_override'] = '';
 $route['cms/(:any)']='/cms/page/';
 $route['profile/(:any)']='member/profile/full/$1';

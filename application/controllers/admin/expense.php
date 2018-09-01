@@ -78,6 +78,7 @@ class expense extends Domain_Controller {
 		//permission setting//
 		$data['url']=base_url();
 		$data['projects']=$this->expense_model->fetchprojects(); //print_r($data['projects']);
+		$data['users']=$this->expense_model->users(); //print_r($data['projects']);
 		$data['expense_type']=$this->expense_model->expense_type(); //print_r($data['expense_type']);
 		$data['expense_sub_type']=$this->expense_model->expense_sub_type(); //print_r($data['projects']);
 		$this->load->view('admin/addexpense',$data);
@@ -110,6 +111,7 @@ class expense extends Domain_Controller {
 
 		$data["expense"]=$this->expense_model->Searchexpense();
 		$data['projects']=$this->expense_model->fetchprojects(); 
+		$data['users']=$this->expense_model->users();
 		$data['expense_type']=$this->expense_model->expense_type(); //print_r($data['expense_type']);
 		$data['expense_sub_type']=$this->expense_model->expense_sub_type(); //print_r($data['projects']);
 		

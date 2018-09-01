@@ -97,7 +97,21 @@ class expense_model extends CI_Model
         } //die;
         return false;
 	}
-	public function expense_type()
+	public function users()
+	{
+		
+		$sql = "SELECT * FROM `admin_login` ";
+		$query=$this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+			
+                $data[] = $row; 
+				
+            }
+            return $data;
+        } //die;
+        return false;
+	}public function expense_type()
 	{
 		
 		$sql = "SELECT * FROM expense_type where active=1";
@@ -135,7 +149,8 @@ class expense_model extends CI_Model
 			$discription=$this->input->post('discription');
 			$expense_sub_type=$this->input->post('expense_sub_type');
 			$cost=$this->input->post('cost');
-			$posted_by=$this->session->userdata('login_id');
+			$posted_by=$this->input->post('users');
+			//$posted_by=$this->session->userdata('login_id');
 			$create_date=$this->input->post('create_date');
 			$create_date = str_replace('/', '-', $create_date);
 			$date = date_create($create_date);
@@ -182,6 +197,7 @@ class expense_model extends CI_Model
 			$discription=$this->input->post('discription');
 			$expense_sub_type=$this->input->post('expense_sub_type');
 			$cost=$this->input->post('cost');
+			$posted_by=$this->input->post('users');
 			//$posted_by=$this->session->userdata('login_id');
 			$create_date=$this->input->post('create_date');
 			$create_date = str_replace('/', '-', $create_date);
@@ -194,7 +210,8 @@ class expense_model extends CI_Model
 				'discription' => $discription,
 				'expense_sub_type' => $expense_sub_type,
 				'cost' => $cost,
-				'posted_date' => $create_date
+				'posted_date' => $create_date,
+				'posted_by' => $posted_by
 			);
 		$this->db->where('expense_id', $expense_id);
 		$this->db->update('expense', $data);

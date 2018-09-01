@@ -56,6 +56,7 @@ class tasks extends Domain_Controller {
 			$page=0;
 		}
 		$data['users']=$this->tasks_model->fetchusers();
+		$data['status']=$this->tasks_model->status(); //print_r($data['status']);
 		$data['tasktype']=$this->tasks_model->tasktype();
 		$data['projects']=$this->tasks_model->fetchprojects();
 		$data["results"] = $this->tasks_model->fetch_data($config["per_page"], $page); 
@@ -79,6 +80,7 @@ class tasks extends Domain_Controller {
 		//permission setting//
 		$data['url']=base_url();
 		$data['projects']=$this->tasks_model->fetchprojects();
+		$data['status']=$this->tasks_model->status();
 		$data['users']=$this->tasks_model->fetchusers();
 		$data['tasktype']=$this->tasks_model->tasktype();
 		$this->load->view('admin/addtasks',$data);
@@ -109,6 +111,7 @@ class tasks extends Domain_Controller {
 		} else {
 		//permission setting//
 		$data['users']=$this->tasks_model->fetchusers();
+		$data['status1']=$this->tasks_model->status();
 		$data["results"]=$this->tasks_model->Searchtask();
 		$data["task_results"]=$this->tasks_model->task_results();
 		$data['tasktype']=$this->tasks_model->tasktype();

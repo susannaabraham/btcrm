@@ -217,8 +217,9 @@
 							  <tr role="row">
 							  <th>Project</th>
 							  <th>Expense </th>
+							  <th>Cost </th>
 							  <th>Date</th>
-							  <th>Posted By</th>
+							  <th>User</th>
 							  <th style="text-align: right;">Action</th>
 							 
 							  </tr>
@@ -243,6 +244,7 @@
 							<TR id="dat_<?php echo $results[$i]->expense_id; ?>" role="row" class="odd">
 								<TD><?php echo $project[0]->name; ?></TD>
 								<TD><?php echo $expense_type[0]->exp_name; ?></TD>
+								<TD><?php echo $results[$i]->cost; ?></TD>
 								<TD><?php echo $results[$i]->posted_date; ?></TD>
 								<TD><?php echo $results[$i]->posted_by; ?></TD>
 

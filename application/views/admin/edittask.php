@@ -176,16 +176,17 @@
 					  <!--label class="control-label col-md-1 col-sm-1 col-xs-12">Status </label-->
 					  <div class="col-md-2 col-sm-2 col-xs-12">
 						<select class="form-control"  name="status">
-							<option value="In Progress">In Progress</option>
-							<option value="Reassigned">Reassigned</option>
-							<option value="Resolved">Resolved</option>
-							<option value="Closed">Closed</option>
+							<?php for($i=0;$i<count($status1);$i++){
+								if($status1[$i]->name !="New"){ ?>
+						<option value="<?php echo $status1[$i]->name; ?>"><?php echo $status1[$i]->name; ?></option>
+								<?php }
+								} ?>
 						</select>
 					  </div>
 					  
 					  <!--label  class="control-label col-md-2 col-sm-2 col-xs-12">Hour(s) Spent<span class="required">*</span></label-->
                       <div class="col-md-2 col-sm-2 col-xs-12">
-                        <input type="text" required placeholder="Hours Spent(s)" name="hours_spent" id="hr"  class="form-control col-md-7 col-xs-12" >
+                        <input type="text" required placeholder="Hours Spent(s)"  name="hours_spent" id="hr"  class="form-control col-md-7 col-xs-12" >
                       </div>
 					  
 					  

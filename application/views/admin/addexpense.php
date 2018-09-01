@@ -165,7 +165,18 @@
 					    <input type="text"  placeholder=" Date" name="create_date" id="single_cal1"  class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
-					 
+					 <div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">User<span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+							<select class="form-control sel" id="project" name="users" placeholder="Select Project">
+								<?php for($i=0;$i<count($users);$i++){?>
+									<option value="<?php echo $users[$i]->uname?>"><?php echo $users[$i]->uname?></option>
+								<?php } ?>
+							</select>
+							
+                      </div>
+                    </div>
 					
 					
 					

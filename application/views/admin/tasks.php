@@ -177,8 +177,20 @@
 											<?php } ?>
 										</select>							
 									</div>
+								</div><?php //echo $status[0]->name;?>
+								<div class="col-lg-2"> 
+									<div class="form-group">
+										<?php //$status=($this->input->get("status",true));	?>
+										<select name="status" class="form-inline form-control sel" >
+											<option value="">-Status-</option>
+											
+											<?php for($j=0;$j<count($status);$j++){ ?>
+											<option value="<?php echo $status[$j]->name; ?>" <?php echo ($status[$j]->name==$status)? "selected":""; ?>><?php echo $status[$j]->name; ?></option>
+											<?php } ?>
+										</select>							
+									</div>
 								</div>
-								<div class="col-lg-2">
+								<!--div class="col-lg-2">
 									<div class="form-group">
 									<?php
 											$se="";
@@ -197,7 +209,7 @@
 											<option value="Closed" <?php echo ($se=='Closed')? "selected":""; ?>>Closed</option>
 										</select>							
 									</div>
-								</div>
+								</div-->
 								<!--div class="col-lg-2">
 									<div class="form-group">											
 										<?php

@@ -196,10 +196,9 @@
 					   <div class="col-md-6 col-sm-6 col-xs-12">
 						<select class="form-control required" id="status" name="status">
 							
-							<option value="New">NEW</option>
-							<option value="In Progress">In Progress</option>
-							<option value="Resolve">Resolve</option>
-							<option value="Close">Close</option>
+							<?php for($i=0;$i<count($status);$i++){?>
+						<option value="<?php echo $status[$i]->name; ?>"><?php echo $status[$i]->name; ?></option>
+						<?php } ?>
 						</select>
 					  </div>
 					</div>
