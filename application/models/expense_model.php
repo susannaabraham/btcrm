@@ -8,6 +8,32 @@ class expense_model extends CI_Model
 		   $this->load->database();
     }
 
+	
+	public function dropdown()
+	{
+		$project_id=$this->input->post("project_id");
+			$sql ="SELECT status FROM projects where id='$project_id'";
+			$query=$this->db->query($sql); 
+			$project=$query->result();
+			$status=$project[0]->status;
+	//	if($status=="1"){
+		$sql1 ="SELECT * from expense_type where project_status='$status'";
+		$query=$this->db->query($sql1);
+		$row=$query->result();		
+		$return="<select name=\"expense_type\" class=\"form-control\">";
+        if ($query->num_rows() > 0) 
+		{
+			$short="";
+          // $short=($db_val=="ivr-".$row->id.",s,1")?"selected":"";
+				$return .='<option  value="'.$row[0]->exp_id.'" '.$short.' >'.$row[0]->exp_name.'</option>';
+			
+			$return .='</select>';
+            return $return;
+        }
+		//}
+		 return false;
+	}	
+	
 	public function fetch_data($limit,$start)
 	{
 		

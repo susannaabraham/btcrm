@@ -51,7 +51,7 @@
 			{
 				type: "POST",
 				url: '<?php echo base_url("/admin/admin/deleteadmin")?>',
-				data: {'groupid':id},
+				data: {'id':id},
 				dataType: 'json',
 				success: function(d)
 				{

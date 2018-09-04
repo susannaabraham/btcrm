@@ -150,7 +150,12 @@ class expense extends Domain_Controller {
 	}
 	
 	
-	
+	public function drpdwn()
+	{
+		$data['url']=base_url();
+		echo $this->expense_model->dropdown();
+				
+	}
 	
 	
 	

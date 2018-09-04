@@ -56,6 +56,24 @@
 		  });
 		});
 
+$(document).ready(function(){		
+$("select#project").change(function(){
+
+var project = $("select#project option:selected").attr('value');
+ //alert(project);
+
+ //if (project != 'Default' ) { }
+ 
+	$.post( "<?php echo base_url("/admin/expense/drpdwn"); ?>", 
+                  { "project_id":project}, 
+                  function(data) { //alert(data);
+                   $("#exp_type").html(data);
+				 }
+               ); 
+ 
+ 
+});
+});
 		</script>
 </head>
 
@@ -117,7 +135,8 @@
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Project<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="project" name="project" placeholder="Select Project">
+							<select class="form-control sel" id="project" name="project" placeholder="Select Project" required>
+								<option value="">select Project</option>
 								<?php for($i=0;$i<count($projects);$i++){?>
 									<option value="<?php echo $projects[$i]->id?>"><?php echo $projects[$i]->name?></option>
 								<?php } ?>
@@ -127,19 +146,22 @@
 					<div class="item form-group">
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense Type<span class="required">*</span>
                       </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="expense_type" name="expense_type">
+                      <div class="col-md-6 col-sm-6 col-xs-12" id="exp_type">
+							<select class="form-control sel" id="sub"   name="expense_type">
 								<?php for($i=0;$i<count($expense_type);$i++){?>
 									<option value="<?php echo $expense_type[$i]->exp_id?>"><?php echo $expense_type[$i]->exp_name?></option>
 								<?php } ?>
 							</select>
                       </div>
                     </div>
+					
+					
+					
 					<div class="item form-group">
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Expense SubType<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="expense_sub_type" name="expense_sub_type">
+							<select class="form-control sel" id="expense_sub_type" name="expense_sub_type" required>
 								<?php for($i=0;$i<count($expense_sub_type);$i++){?>
 									<option value="<?php echo $expense_sub_type[$i]->exp_subid?>"><?php echo $expense_sub_type[$i]->exp_subname?></option>
 								<?php } ?>
@@ -156,7 +178,7 @@
 					 <div class="item form-group">
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12"> cost</label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text"  placeholder=" cost" name="cost"   class="form-control col-md-7 col-xs-12" >
+                        <input type="text"  placeholder=" cost" name="cost" required  class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
 					<div class="item form-group">
@@ -169,7 +191,7 @@
                       <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">User<span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-							<select class="form-control sel" id="project" name="users" placeholder="Select Project">
+							<select class="form-control sel" id="project" name="users" required>
 								<?php for($i=0;$i<count($users);$i++){?>
 									<option value="<?php echo $users[$i]->uname?>"><?php echo $users[$i]->uname?></option>
 								<?php } ?>
