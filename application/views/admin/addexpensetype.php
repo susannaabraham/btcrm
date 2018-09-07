@@ -117,7 +117,20 @@
                         <input type="text" required="required" placeholder="Expense Type Name" name="exp_name"   class="form-control col-md-7 col-xs-12" >
                       </div>
                     </div>
-					
+					<div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Project Status <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+						<select class="form-control required" id="status" name="status" >
+							<option value="">-Select Project Status-</option>
+							<option value="1" >Enquiry</option>
+							<option value="2" >POC</option>
+							<option value="3">Implementation</option>
+							<option value="4" >AMC</option>
+							<option value="5">NON AMC</option>
+						</select>
+						</div>
+                    </div>	
 					
                     <div class="ln_solid"></div>
                     <div class="form-group">

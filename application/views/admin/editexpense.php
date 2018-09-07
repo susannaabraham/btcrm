@@ -62,6 +62,24 @@
 		  });
 		});
 
+$(document).ready(function(){		
+$("select#project").change(function(){
+
+var project = $("select#project option:selected").attr('value');
+ //alert(project);
+
+ //if (project != 'Default' ) { }
+ 
+	$.post( "<?php echo base_url("/admin/expense/drpdwn"); ?>", 
+                  { "project_id":project}, 
+                  function(data) { //alert(data);
+                   $("#exp_type").html(data);
+				 }
+               ); 
+ 
+ 
+});
+});
 		</script>
 </head>
 

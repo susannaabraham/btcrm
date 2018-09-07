@@ -30,7 +30,7 @@ class expense extends Domain_Controller {
 	{ 
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(6)){ 
+		if(false===$this->user_model->haspermission2(28)){ 
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -68,7 +68,7 @@ class expense extends Domain_Controller {
 	{
 	  //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(24)){
+		if(false===$this->user_model->haspermission2(29)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -100,7 +100,7 @@ class expense extends Domain_Controller {
 	{
 		 //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(7)){
+		if(false===$this->user_model->haspermission2(30)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -133,7 +133,7 @@ class expense extends Domain_Controller {
 	{	
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(5)){
+		if(false===$this->user_model->haspermission2(31)){
 		echo json_encode(array("success"=>false));
 		
 		} else {

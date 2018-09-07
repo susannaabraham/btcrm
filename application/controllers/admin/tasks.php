@@ -30,7 +30,7 @@ class tasks extends Domain_Controller {
 	{ 
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(2)){ 
+		if(false===$this->user_model->haspermission2(3)){ 
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -70,7 +70,7 @@ class tasks extends Domain_Controller {
 	{
 	  //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(3)){
+		if(false===$this->user_model->haspermission2(23)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -131,13 +131,13 @@ class tasks extends Domain_Controller {
 	}
 	public function deltask()
 	{	
-		/* //permission setting//
+		 //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(5)){
+		if(false===$this->user_model->haspermission2(27)){
 		echo json_encode(array("success"=>false));
 		
 		} else {
-		//permission setting// */
+		//permission setting// 
 		header('content-type: application/json; charset=utf-8');
 		$result=$this->tasks_model->doDelete();
 		if($result>0)
@@ -146,7 +146,7 @@ class tasks extends Domain_Controller {
 		}else{
 			echo json_encode(array("success"=>false));
 		}
-		// }
+		 }
 	}
 	
 	

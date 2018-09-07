@@ -53,9 +53,11 @@ class expensetype_model extends CI_Model
 	{
 
 			$exp_name=$this->input->post('exp_name');
+			$status=$this->input->post('status');
 
 			$data = array(
-				'exp_name' => $exp_name
+				'exp_name' => $exp_name,
+				'project_status' => $status
 			);
 
 			$this->db->insert('expense_type', $data);
@@ -85,9 +87,11 @@ class expensetype_model extends CI_Model
 	{
 		$exp_id=$this->input->post('exp_id');
 		$exp_name=$this->input->post('exp_name');
+		$status=$this->input->post('status');
 
 		$data = array(
-				'exp_name' => $exp_name
+				'exp_name' => $exp_name,
+				'project_status' => $status
 		);
 		
 		$this->db->where('exp_id', $exp_id);

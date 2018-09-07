@@ -30,7 +30,7 @@ class expensesubtype extends Domain_Controller {
 	{ 
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(8)){ 
+		if(false===$this->user_model->haspermission2(42)){ 
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -66,7 +66,7 @@ class expensesubtype extends Domain_Controller {
 	{
 	  //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(25)){
+		if(false===$this->user_model->haspermission2(43)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -94,7 +94,7 @@ class expensesubtype extends Domain_Controller {
 	{
 		 //permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(9)){
+		if(false===$this->user_model->haspermission2(44)){
 			$message='<div class="alert alert-dismissible alert-danger">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> You don\'t have permission to access this page.</div>'; 
@@ -122,7 +122,7 @@ class expensesubtype extends Domain_Controller {
 	{	
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(5)){
+		if(false===$this->user_model->haspermission2(45)){
 		echo json_encode(array("success"=>false));
 		
 		} else {

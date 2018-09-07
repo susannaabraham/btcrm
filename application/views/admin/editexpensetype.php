@@ -124,6 +124,20 @@
                         <input type="text" required="required" placeholder="Expense Type Name" name="exp_name"  class="form-control col-md-7 col-xs-12" value="<?php echo $expensetype[0]->exp_name; ?>" >
                       </div>
                     </div>
+					<div class="item form-group">
+                      <label for="name" class="control-label col-md-3 col-sm-3 col-xs-12">Project Status <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+						<select class="form-control required" id="status" name="status" >
+							<option value="">-Select Project Status-</option>
+							<option value="1" <?php if($expensetype[0]->status=='1') { echo "selected"; } ?> >Enquiry</option>
+							<option value="2" <?php if($expensetype[0]->status=='2') { echo "selected"; } ?>>POC</option>
+							<option value="3" <?php if($expensetype[0]->status=='3') { echo "selected"; } ?>>Implementation</option>
+							<option value="4" <?php if($expensetype[0]->status=='4') { echo "selected"; } ?>>AMC</option>
+							<option value="5" <?php if($expensetype[0]->status=='5') { echo "selected"; } ?>>NON AMC</option>
+						</select>
+						</div>
+                    </div>	
 					
 					
 							

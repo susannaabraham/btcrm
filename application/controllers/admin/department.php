@@ -122,7 +122,7 @@ class department extends Domain_Controller {
 	{	
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(5)){
+		if(false===$this->user_model->haspermission2(32)){
 		echo json_encode(array("success"=>false));
 		
 		} else {

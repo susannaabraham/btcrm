@@ -122,7 +122,7 @@ class tasktype extends Domain_Controller {
 	{	
 		//permission setting//
 		$this->load->model('user_model');
-		if(false===$this->user_model->haspermission2(5)){
+		if(false===$this->user_model->haspermission2(37)){
 		echo json_encode(array("success"=>false));
 		
 		} else {

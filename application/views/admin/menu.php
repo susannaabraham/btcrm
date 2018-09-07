@@ -35,9 +35,9 @@
 					{ ?>
 				<?php if((false===$this->user_model->haspermission2(1)) && 
 				(false===$this->user_model->haspermission2(3)) && 
-				(false===$this->user_model->haspermission2(5)) ) { }  else { ?>
+				(false===$this->user_model->haspermission2(28)) ) { }  else { ?>
 
-                 <li><a><i class="fa fa-headphones"></i> CRM <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-home"></i> CRM <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
 					<?php $this->load->model('user_model');
 					if(false===$this->user_model->haspermission2(5)){ } else { ?>
@@ -61,7 +61,7 @@
 					<li><a href="<?php echo base_url("/admin/tasks/"); ?>">TASKS</a></li>
 					<?php } ?>
 					
-					<?php if(false===$this->user_model->haspermission2(3)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(28)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/expense/"); ?>">EXPENSE</a></li>
 					<?php } ?>
 					 
@@ -74,28 +74,31 @@
 					if ($query->num_rows() > 0) 
 					{ ?>
 				<?php if((false===$this->user_model->haspermission2(6)) && 
-				(false===$this->user_model->haspermission2(8))) { }  else { ?>
+				(false===$this->user_model->haspermission2(8)) && 
+				(false===$this->user_model->haspermission2(33)) && 
+				(false===$this->user_model->haspermission2(38)) && 
+				(false===$this->user_model->haspermission2(42))) { }  else { ?>
 
-                 <li><a><i class="fa fa-headphones"></i> CRM MASTER <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-pencil-square-o"></i> CRM MASTER <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
 					<?php $this->load->model('user_model');
-					if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					if(false===$this->user_model->haspermission2(6)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/department/"); ?>">DEPARTMENT</a></li>
 					<?php } ?> 
 					
-					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(33)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/status/"); ?>">STATUS</a></li>
 					<?php } ?>  
 					
-					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(8)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/tasktype/"); ?>">TASK TYPE</a></li>
 					<?php } ?>
 					
-					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(38)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/expensetype/"); ?>">EXPENSE TYPE</a></li>
 					<?php } ?>
 					
-					<?php if(false===$this->user_model->haspermission2(2)){  } else {  ?>
+					<?php if(false===$this->user_model->haspermission2(42)){  } else {  ?>
 					<li><a href="<?php echo base_url("/admin/expensesubtype/"); ?>">EXPENSE SUBTYPE</a></li>
 					<?php } ?>
 				
